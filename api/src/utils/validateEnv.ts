@@ -10,6 +10,7 @@ function validateEnv(): void {
     MONGO_PASSWORD: str(),
     MONGO_DB_URI: str(),
     MONGO_DATABASE: str(),
+    JWT_SECRET: str(),
   });
 }
 

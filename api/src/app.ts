@@ -24,7 +24,7 @@ class App extends MongoDB {
   }
 
   private initialiseMiddleware(): void {
-    this.express.use(helmet);
+    this.express.use(helmet());
     this.express.use(cors());
     this.express.use(express.json());
     this.express.use(morgan('dev'));
@@ -33,7 +33,7 @@ class App extends MongoDB {
   }
 
   private initialiseRoutes(routers: RouterInterace[]): void {
-    routers.forEach((router: RouterInterace) => this.express.use('/api', router.route));
+    routers.forEach((router: RouterInterace) => this.express.use('/api', router.router));
   }
 
   private initialiseErrorHandling() {
