@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
+import authenticatedMiddleware from 'middleware/authenticated.middleware';
+import { Roles } from 'utils/enums/roles.enums';
 import RouterInterace from 'utils/interfaces/router.interface';
 import UserController from './user.controller';
 import validationMiddleware from 'middleware/validation.middleware';
 import validate from 'resources/user/user.validation';
-import authenticatedMiddleware from 'middleware/authenticated.middleware';
 
 class UserRouter implements RouterInterace {
   public path: string = '/users';
@@ -26,7 +27,11 @@ class UserRouter implements RouterInterace {
       validationMiddleware(validate.login),
       this.UserController.login
     );
-    this.router.get(`${this.path}/get`, authenticatedMiddleware, this.UserController.getUser);
+    this.router.get(
+      `${this.path}/get`,
+      authenticatedMiddleware([Roles.User]),
+      this.UserController.getUser
+    );
   }
 }
 
