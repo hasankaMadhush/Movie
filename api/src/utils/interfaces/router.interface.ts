@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 interface RouterInterace {
   path: string;
-  route: Router;
+  router: Router;
 }
 
 export default RouterInterace;
