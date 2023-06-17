@@ -21,7 +21,6 @@ UserSchema.pre<User>('save', async function (next) {
   this.password = hash;
   next();
 });
-
 UserSchema.methods.isValidPassword = async function (password: string): Promise<Error | boolean> {
   return await bcrypt.compare(password, this.password);
 };
