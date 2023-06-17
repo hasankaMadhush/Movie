@@ -71,7 +71,6 @@ class MovieCollectionService {
       }
       return movieCollection;
     } catch (error: any) {
-      console.log('error found::', error.message);
       throw new Error('Unable to update movie collection');
     }
   }
