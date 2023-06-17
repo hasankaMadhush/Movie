@@ -9,7 +9,7 @@ import validate from 'resources/user/user.validation';
 
 class UserRouter implements RouterInterace {
   public path: string = '/users';
-  public router = Router();
+  public router: Router = Router();
   private UserController = new UserController();
 
   constructor() {
