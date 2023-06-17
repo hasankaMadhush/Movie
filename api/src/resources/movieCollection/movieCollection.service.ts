@@ -40,7 +40,7 @@ class MovieCollectionService {
 
   public async findByUser(userId: string): Promise<MovieCollection[] | Error> {
     try {
-      return this.movieCollection
+      return await this.movieCollection
         .find({ owner: userId })
         .populate({ path: 'owner', select: '_id name' })
         .populate({ path: 'movies', select: '_id title' });
@@ -51,7 +51,7 @@ class MovieCollectionService {
 
   public async getOtherUsersCollections(userId: string): Promise<MovieCollection[] | Error> {
     try {
-      return this.movieCollection
+      return await this.movieCollection
         .find({ owner: { $ne: userId } })
         .populate({ path: 'owner', select: '_id name' })
         .populate({ path: 'movies', select: '_id title' });
