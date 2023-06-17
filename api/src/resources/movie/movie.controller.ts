@@ -5,6 +5,7 @@ import { HttpStatus } from 'utils/enums/http.status.enums';
 import MovieService from 'resources/movie/movie.service';
 import responseMiddleware from 'middleware/response.middleware';
 import { Roles } from 'utils/enums/roles.enums';
+import { MovieType } from 'utils/enums/movie.enums';
 
 class MovieController {
   private MovieService = new MovieService();
@@ -15,8 +16,8 @@ class MovieController {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
-      const { limit, offset, sortBy } = req.params;
-      const movies = await this.MovieService.getAll(Number(limit), Number(offset), sortBy);
+      const { limit = 50, offset = 0 } = req.query;
+      const movies = await this.MovieService.getAll(Number(limit), Number(offset));
       responseMiddleware(res, HttpStatus.Ok, { movies });
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
@@ -29,14 +30,13 @@ class MovieController {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
-      const { limit, offset, sortBy } = req.params;
+      const { limit = 50, offset = 0 } = req.query;
       const { filterBy, filterValue } = req.body;
       const movies = await this.MovieService.getBy(
-        Number(limit),
-        Number(offset),
-        sortBy,
         filterBy,
-        filterValue
+        filterValue,
+        Number(limit),
+        Number(offset)
       );
       responseMiddleware(res, HttpStatus.Ok, { movies });
     } catch (error: any) {

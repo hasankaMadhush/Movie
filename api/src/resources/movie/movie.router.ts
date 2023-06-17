@@ -18,21 +18,21 @@ class MovieRouter implements RouterInterace {
 
   private initialiseRoutes(): void {
     this.router.get(
-      `${this.path}/movies/:limit/:offset/:sortBy`,
+      `${this.path}`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      validationMiddleware(validate.getAll),
+      // validationMiddleware(validate.getAll),
       this.MovieController.getAll
     );
     this.router.post(
-      `${this.path}/movies/:limit/:offset/:sortBy`,
+      `${this.path}`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      validationMiddleware(validate.getBy),
+      // validationMiddleware(validate.getBy),
       this.MovieController.getBy
     );
     this.router.post(
-      `${this.path}/movies/:id`,
+      `${this.path}/:id`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      validationMiddleware(validate.getById),
+      // validationMiddleware(validate.getById),
       this.MovieController.getById
     );
   }
