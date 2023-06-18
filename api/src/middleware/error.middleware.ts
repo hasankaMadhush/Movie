@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpException from 'utils/exceptions/http.exception';
 import { HttpStatus } from 'utils/enums/http.status.enums';
+import Logger from 'utils/logger/logger';
 
+// logs all errors to logger file
 function errorMiddleware(
   error: HttpException,
   req: Request,
@@ -10,7 +12,8 @@ function errorMiddleware(
 ): void {
   const status = error.status || HttpStatus.Internal_Error;
   const message = error.message || 'Something went wrong.';
-
+  const logger = new Logger();
+  logger.log('error', message);
   res.status(status).send({
     status,
     message,

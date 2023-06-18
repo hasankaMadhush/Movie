@@ -1,5 +1,5 @@
 interface DBConnectionInterface {
-  connect: any;
+  connect(): void;
 }
 
 export default DBConnectionInterface;
