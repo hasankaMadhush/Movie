@@ -7,6 +7,7 @@ import compression from 'compression';
 import ErrorMiddleware from 'middleware/error.middleware';
 import MongoDB from 'utils/mongo.db';
 import RouterInterace from 'utils/interfaces/router.interface';
+import Logger from 'utils/logger/logger';
 
 class App extends MongoDB {
   public express: Application;
@@ -18,9 +19,15 @@ class App extends MongoDB {
     this.port = port;
 
     this.initialiseDatabaseConnection();
+    this.initialiseLogger();
     this.initialiseMiddleware();
     this.initialiseRoutes(routers);
     this.initialiseErrorHandling();
+  }
+
+  private initialiseLogger(): void {
+    const logger = new Logger();
+    logger.logRequests(this.express);
   }
 
   private initialiseMiddleware(): void {

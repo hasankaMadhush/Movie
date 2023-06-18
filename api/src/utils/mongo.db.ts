@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import DBConnectionInterface from './interfaces/db.connection.interface';
 
 class MongoDB implements DBConnectionInterface {
-  connect() {
+  connect(): void {
     const { MONGO_USER, MONGO_PASSWORD, MONGO_DB_URI, MONGO_DATABASE } = process.env;
     const host: string = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_DB_URI}`;
     mongoose
