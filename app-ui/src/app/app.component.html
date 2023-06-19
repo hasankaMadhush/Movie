@@ -1,0 +1,60 @@
+<!-- <mat-toolbar color="primary">
+  <span>My Movies</span>
+  <span class="example-spacer"></span>
+  <span class="menu-spacer"></span>
+  <div>
+    <a mat-button [routerLink]="'/create-contact'"> Movies </a>
+    <a mat-button [routerLink]="'/create-contact'"> My Collections </a>
+    <a mat-button [routerLink]="'/activities'"> All Collections </a>
+    <a mat-button [routerLink]="'/create-activity'">
+      <mat-icon>account_circle</mat-icon>
+      My Account
+    </a>
+  </div>
+</mat-toolbar>
+<app-login></app-login> -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand font-family-satisfy mx-4" href="#">My Movies</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="right-container navbar-nav mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Collections</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">All Collections</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+          >Profile</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link disabled"
+          href="#"
+          tabindex="-1"
+          aria-disabled="true"
+        >
+          <fa-icon [icon]="faRightFromBracket"></fa-icon>
+          Sign out</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+<app-login></app-login>
