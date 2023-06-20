@@ -8,7 +8,7 @@ import validationMiddleware from 'middleware/validation.middleware';
 /**
  * TO DO: Add Middleware validations
  */
-class MovieConnectionRouter implements RouterInterace {
+class CollectionRouter implements RouterInterace {
   public path = '/collections';
   public router = Router();
   private CollectionController = new CollectionController();
@@ -26,8 +26,9 @@ class MovieConnectionRouter implements RouterInterace {
     // add authentication validations
     this.router.get(`${this.path}/:id`, this.CollectionController.get);
     this.router.post(`${this.path}/:id`, this.CollectionController.addMovies);
+    this.router.post(`${this.path}/:id/remove`, this.CollectionController.removeMovies);
     this.router.delete(`${this.path}/:id`, this.CollectionController.delete);
   }
 }
 
-export default MovieConnectionRouter;
+export default CollectionRouter;

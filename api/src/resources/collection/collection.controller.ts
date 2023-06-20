@@ -46,8 +46,29 @@ class MovieCollectionController {
     try {
       const { id } = req.params;
       const { moviesToAdd = [] } = req.body;
-      const movieCollection = await this.CollectionService.addMovies(id, moviesToAdd);
-      responseMiddleware(res, HttpStatus.Ok, movieCollection);
+      responseMiddleware(
+        res,
+        HttpStatus.Ok,
+        await this.CollectionService.addMovies(id, moviesToAdd)
+      );
+    } catch (error: any) {
+      next(new HttpException(HttpStatus.Bad_Request, error.message));
+    }
+  };
+
+  public removeMovies = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      const { moviesToRemove = [] } = req.body;
+      responseMiddleware(
+        res,
+        HttpStatus.Ok,
+        await this.CollectionService.removeMovies(id, moviesToRemove)
+      );
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }
