@@ -1,0 +1,4 @@
+<app-navbar *ngIf="authService.isLoggedIn$ | async"></app-navbar>
+<!-- <app-login *ngIf="!authService.isLoggedIn$"></app-login> -->
+<!-- <p>Am I logged In: {{ authService.isLoggedIn$ | async }}</p> -->
+<router-outlet></router-outlet>
