@@ -25,8 +25,8 @@ class CollectionRouter implements RouterInterace {
     );
     // add authentication validations
     this.router.get(`${this.path}/:id`, this.CollectionController.get);
-    this.router.post(`${this.path}/:id`, this.CollectionController.addMovies);
-    this.router.post(`${this.path}/:id/remove`, this.CollectionController.removeMovies);
+    this.router.post(`${this.path}/:id/movies`, this.CollectionController.addMovies);
+    this.router.post(`${this.path}/:id/movies/remove`, this.CollectionController.removeMovies);
     this.router.delete(`${this.path}/:id`, this.CollectionController.delete);
   }
 }
