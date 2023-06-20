@@ -26,7 +26,7 @@ class MovieConnectionRouter implements RouterInterace {
     // add authentication validations
     this.router.get(`${this.path}/:id`, this.CollectionController.get);
     this.router.post(`${this.path}/:id`, this.CollectionController.addMovies);
-    this.router.delete(`${this.path}/:id`, this.CollectionController.addMovies);
+    this.router.delete(`${this.path}/:id`, this.CollectionController.delete);
   }
 }
 
