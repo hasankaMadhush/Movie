@@ -18,8 +18,11 @@ class UserController {
   ): Promise<Response | void> => {
     try {
       const { email, name, password } = req.body;
-      const token = await this.UserService.create(name, email, password, Roles.User);
-      responseMiddleware(res, HttpStatus.Created, { token });
+      responseMiddleware(
+        res,
+        HttpStatus.Created,
+        await this.UserService.create(name, email, password, Roles.User)
+      );
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }
@@ -34,8 +37,7 @@ class UserController {
       const { email, password } = req.body;
       const user: User | Error = await this.UserService.authenticate(email, password);
       if (!(user instanceof Error)) {
-        const accessToken = token.create(user);
-        responseMiddleware(res, HttpStatus.Ok, { ...user, token });
+        responseMiddleware(res, HttpStatus.Ok, { user, token: token.create(user) });
       }
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
