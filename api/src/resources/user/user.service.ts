@@ -20,7 +20,7 @@ class UserService {
         password,
         role,
       });
-      const accessToken = token.createToken(user);
+      const accessToken = token.create(user);
       return accessToken;
     } catch (error) {
       throw new Error('Unable to create user');
@@ -35,7 +35,7 @@ class UserService {
       }
 
       if (await user.isValidPassword(password)) {
-        return token.createToken(user);
+        return token.create(user);
       }
 
       throw new Error('Wrong Credentials given.');

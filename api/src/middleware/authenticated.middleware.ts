@@ -22,7 +22,7 @@ function authenticatedMiddleware(roles: string[] | string = [Roles.User]): any {
           return next(new HttpException(HttpStatus.Unauthorized, UNATHORIZED));
         }
         const accessToken = bearer.split('Bearer ')[1].trim();
-        const payload: Token | jwt.JsonWebTokenError = await token.verifyToken(accessToken);
+        const payload: Token | jwt.JsonWebTokenError = await token.verify(accessToken);
 
         if (payload instanceof jwt.JsonWebTokenError) {
           return next(new HttpException(HttpStatus.Unauthorized, UNATHORIZED));
