@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 import Collection from 'resources/collection/collection.interface';
 import CollectionModel from 'resources/collection/collection.model';
@@ -15,7 +15,7 @@ class UserService {
     email: string,
     password: string,
     role: string
-  ): Promise<string | Error> {
+  ): Promise<User | Error> {
     try {
       const user = await this.user.create({
         name,
@@ -23,10 +23,13 @@ class UserService {
         password,
         role,
       });
-      const accessToken = token.create(user);
-      return accessToken;
-    } catch (error) {
-      throw new Error('Unable to create user');
+      const passwordLessUser = await this.user.findById({ _id: user._id }).select('-password');
+      if (passwordLessUser) {
+        return passwordLessUser;
+      }
+      throw new Error(`Unable to create user`);
+    } catch (error: any) {
+      throw new Error(`Unable to create user:${error.message}`);
     }
   }
 
@@ -37,11 +40,14 @@ class UserService {
         throw new Error('Unable to find the user');
       }
       if (await user.isValidPassword(password)) {
-        return user;
+        const passwordLessUser = await this.user.findById({ _id: user._id }).select('-password');
+        if (passwordLessUser) {
+          return passwordLessUser;
+        }
       }
       throw new Error('Invalid password.');
-    } catch (error) {
-      throw new Error('Unable to login user');
+    } catch (error: any) {
+      throw new Error(`Unable to authenticate user: ${error.message}`);
     }
   }
   public async getCollections(userId: string): Promise<Collection[] | Error> {
@@ -50,8 +56,8 @@ class UserService {
         .find({ owner: userId })
         .populate({ path: 'owner', select: '_id name' })
         .populate({ path: 'movies' });
-    } catch (error) {
-      throw new Error('Unable to get collection');
+    } catch (error: any) {
+      throw new Error(`Unable to get collection: ${error.message}`);
     }
   }
 
@@ -61,8 +67,8 @@ class UserService {
         .find({ owner: { $ne: userId } })
         .populate({ path: 'owner', select: '_id name' })
         .populate({ path: 'movies' });
-    } catch (error) {
-      throw new Error('Unable to get collection');
+    } catch (error: any) {
+      throw new Error(`Unable to get collection: ${error.message}`);
     }
   }
 }
