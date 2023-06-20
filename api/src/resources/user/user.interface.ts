@@ -5,6 +5,7 @@ interface User extends Document {
   name: string;
   password: string;
   role: string;
+  token?: string;
 
   isValidPassword(password: string): Promise<Error | boolean>;
 }

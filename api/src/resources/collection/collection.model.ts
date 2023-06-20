@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
-import MovieCollection from './movieCollection.interface';
+import Collection from './collection.interface';
 
 const NO_OF_MOVIES_ALLOWED = 10;
 
-const MovieCollectionSchema = new Schema(
+const CollectionSchema = new Schema(
   {
     name: { type: String, required: true },
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -19,6 +19,6 @@ function arrayLimit(data: [Schema.Types.ObjectId]): boolean {
   return data.length < NO_OF_MOVIES_ALLOWED;
 }
 
-MovieCollectionSchema.index({ name: 1, owner: 1 }, { unique: true });
+CollectionSchema.index({ name: 1, owner: 1 }, { unique: true });
 
-export default model<MovieCollection>('MovieCollection', MovieCollectionSchema);
+export default model<Collection>('Collection', CollectionSchema);

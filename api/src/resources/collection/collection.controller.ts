@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 
+import CollectionService from 'resources/collection/collection.service';
 import HttpException from 'utils/exceptions/http.exception';
 import { HttpStatus } from 'utils/enums/http.status.enums';
-import MovieCollectionService from 'resources/movieCollection/movieCollection.service';
 import responseMiddleware from 'middleware/response.middleware';
 
 class MovieCollectionController {
-  private MovieCollectionService = new MovieCollectionService();
+  private CollectionService = new CollectionService();
 
   public create = async (
     req: Request,
@@ -14,53 +14,25 @@ class MovieCollectionController {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
-      console.log(req.body);
       const { name, createdBy, movies = [] } = req.body;
-      const movieCollection = await this.MovieCollectionService.create(name, createdBy, movies);
-      responseMiddleware(res, HttpStatus.Created, { name: movieCollection });
-    } catch (error: any) {
-      next(new HttpException(HttpStatus.Bad_Request, error.message));
-    }
-  };
-
-  public getById = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    try {
-      const { id } = req.params;
-      responseMiddleware(res, HttpStatus.Ok, await this.MovieCollectionService.getById(id));
-    } catch (error: any) {
-      next(new HttpException(HttpStatus.Bad_Request, error.message));
-    }
-  };
-
-  public findByUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    try {
-      const { id } = req.params;
-      responseMiddleware(res, HttpStatus.Ok, await this.MovieCollectionService.findByUser(id));
-    } catch (error: any) {
-      next(new HttpException(HttpStatus.Bad_Request, error.message));
-    }
-  };
-
-  public getOtherUsersCollections = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    try {
-      const { id } = req.params;
       responseMiddleware(
         res,
-        HttpStatus.Ok,
-        await this.MovieCollectionService.getOtherUsersCollections(id)
+        HttpStatus.Created,
+        await this.CollectionService.create(name, createdBy, movies)
       );
+    } catch (error: any) {
+      next(new HttpException(HttpStatus.Bad_Request, error.message));
+    }
+  };
+
+  public get = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      responseMiddleware(res, HttpStatus.Ok, await this.CollectionService.get(id));
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }
@@ -74,8 +46,42 @@ class MovieCollectionController {
     try {
       const { id } = req.params;
       const { moviesToAdd = [] } = req.body;
-      const movieCollection = this.MovieCollectionService.addMovies(id, moviesToAdd);
-      responseMiddleware(res, HttpStatus.Ok, movieCollection);
+      responseMiddleware(
+        res,
+        HttpStatus.Ok,
+        await this.CollectionService.addMovies(id, moviesToAdd)
+      );
+    } catch (error: any) {
+      next(new HttpException(HttpStatus.Bad_Request, error.message));
+    }
+  };
+
+  public removeMovies = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      const { moviesToRemove = [] } = req.body;
+      responseMiddleware(
+        res,
+        HttpStatus.Ok,
+        await this.CollectionService.removeMovies(id, moviesToRemove)
+      );
+    } catch (error: any) {
+      next(new HttpException(HttpStatus.Bad_Request, error.message));
+    }
+  };
+
+  public delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      responseMiddleware(res, HttpStatus.Ok, await this.CollectionService.delete(id));
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }

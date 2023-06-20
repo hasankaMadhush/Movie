@@ -1,13 +1,16 @@
 import { Model } from 'mongoose';
 
-import UserModel from 'resources/user/user.model';
+import Collection from 'resources/collection/collection.interface';
+import CollectionModel from 'resources/collection/collection.model';
 import token from 'utils/token';
 import User from './user.interface';
+import UserModel from 'resources/user/user.model';
 
 class UserService {
   private user: Model<User> = UserModel;
+  private collection: Model<Collection> = CollectionModel;
 
-  public async register(
+  public async create(
     name: string,
     email: string,
     password: string,
@@ -27,32 +30,39 @@ class UserService {
     }
   }
 
-  public async login(email: string, password: string): Promise<string | Error> {
+  public async authenticate(email: string, password: string): Promise<User | Error> {
     try {
       const user = await this.user.findOne({ email });
       if (!user) {
         throw new Error('Unable to find the user');
       }
-
       if (await user.isValidPassword(password)) {
-        return token.create(user);
+        return user;
       }
-
-      throw new Error('Wrong Credentials given.');
+      throw new Error('Invalid password.');
     } catch (error) {
       throw new Error('Unable to login user');
     }
   }
-
-  public async getUser(_id: string): Promise<User | Error> {
+  public async getCollections(userId: string): Promise<Collection[] | Error> {
     try {
-      const user = await this.user.findById({ _id }).select('-password').exec();
-      if (!user) {
-        throw new Error('User not found');
-      }
-      return user;
-    } catch (error: any) {
-      throw new Error(`Unable to find user: ${error.message}`);
+      return await this.collection
+        .find({ owner: userId })
+        .populate({ path: 'owner', select: '_id name' })
+        .populate({ path: 'movies' });
+    } catch (error) {
+      throw new Error('Unable to get collection');
+    }
+  }
+
+  public async getOtherCollections(userId: string): Promise<Collection[] | Error> {
+    try {
+      return await this.collection
+        .find({ owner: { $ne: userId } })
+        .populate({ path: 'owner', select: '_id name' })
+        .populate({ path: 'movies' });
+    } catch (error) {
+      throw new Error('Unable to get collection');
     }
   }
 }

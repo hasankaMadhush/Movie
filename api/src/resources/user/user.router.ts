@@ -18,20 +18,18 @@ class UserRouter implements RouterInterace {
 
   private initialiseRoutes(): void {
     this.router.post(
-      `${this.path}/register`,
-      validationMiddleware(validate.register),
-      this.UserController.register
+      `${this.path}`,
+      validationMiddleware(validate.create),
+      this.UserController.create
     );
     this.router.post(
-      `${this.path}/login`,
-      validationMiddleware(validate.login),
-      this.UserController.login
+      `${this.path}/authenticate`,
+      validationMiddleware(validate.authenticate),
+      this.UserController.authenticate
     );
-    this.router.get(
-      `${this.path}/get`,
-      authenticatedMiddleware([Roles.User]),
-      this.UserController.getUser
-    );
+    // add authentication middleware
+    this.router.get(`${this.path}/:id/my-collections`, this.UserController.getCollections);
+    this.router.get(`${this.path}/:id/other-collections`, this.UserController.getOtherCollections);
   }
 }
 
