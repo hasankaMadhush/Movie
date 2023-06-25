@@ -1,0 +1,95 @@
+<app-hero-section
+  title="Welcome {{ user?.name }}!"
+  content="{{ content }}"
+></app-hero-section>
+<div class="container-fluid px-4">
+  <div class="my-3">
+    <div class="d-flex justify-content-between">
+      <h3>Latest Movies</h3>
+      <a [routerLink]="['movies']" class="my-auto">
+        Explore more
+        <fa-icon [icon]="faChevronCircleRight" class="mx-2 my-auto"></fa-icon>
+      </a>
+    </div>
+    <hr />
+    <div class="w-100 row">
+      <div
+        *ngFor="let movie of latestMovies"
+        class="display-card mb-3 mx-3 p-0"
+        (click)="navigateToMovie(movie._id)"
+      >
+        <div class="content">
+          <p class="date">
+            Released On:
+            {{ dayjs(movie.releaseDate).format("YYYY-MM-DD") }} ({{
+              movie.language.toUpperCase()
+            }})
+          </p>
+          <p class="title">{{ movie.title }}</p>
+        </div>
+        <div>
+          <img src="{{ movie.poster }}" alt="display-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="my-3">
+    <div class="d-flex justify-content-between">
+      <h3>Explore collections</h3>
+      <a [routerLink]="['collections']" class="my-auto"
+        >Explore more
+        <fa-icon [icon]="faChevronCircleRight" class="mx-2 my-auto"></fa-icon>
+      </a>
+    </div>
+
+    <hr />
+    <div class="w-100 row">
+      <div
+        *ngFor="let collection of exploreCollections"
+        class="display-card mb-3 mx-3 p-0"
+        (click)="navigateToCollection(collection._id)"
+      >
+        <div class="content">
+          <p class="date">
+            {{ dayjs(collection.createdAt).format("YYYY-MM-DD") }}
+          </p>
+          <p class="title">{{ collection.name }}</p>
+        </div>
+        <div>
+          <img src="{{collection?.movies?.[0]?.poster}}" alt="display-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="my-3">
+    <div class="d-flex justify-content-between">
+      <h3>Your Collections</h3>
+      <a [routerLink]="['my-collections']" class="my-auto"
+        >Explore more
+        <fa-icon [icon]="faChevronCircleRight" class="mx-2 my-auto"></fa-icon>
+      </a>
+    </div>
+    <hr />
+    <div class="w-100 row">
+      <div
+        *ngFor="let collection of latestCollections"
+        class="display-card mb-3 mx-3 p-0"
+        (click)="navigateToCollection(collection._id)"
+      >
+        <div class="content">
+          <p class="date">
+            {{ dayjs(collection.createdAt).format("YYYY-MM-DD") }}
+          </p>
+          <p class="title">{{ collection.name }}</p>
+        </div>
+        <div>
+          <img
+            src="{{collection?.movies?.[0]?.poster}}"
+            alt="display-cover"
+            class="cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
