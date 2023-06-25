@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../apiService/api.service';
+import { ApiService } from './api.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import Movie from 'src/app/interfaces/movie.interface';
 
@@ -14,8 +14,9 @@ export class MovieService {
     this.getMovies();
   }
 
-  getMovies() {
-    return this.apiService.getMovies();
+  getMovies(limit: number = 50, offset: number = 0, search: string = '') {
+    console.log('query offset::', offset);
+    return this.apiService.getMovies(limit, offset, search);
     // .pipe(
     // tap((response: any) => {
     //   const { movies = [] } = response.data;

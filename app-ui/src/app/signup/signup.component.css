@@ -16,3 +16,9 @@
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   background-clip: text;
 }
+
+.signup-container {
+  min-height: 100vh;
+  background-size: cover;
+  background-image: url(https://assets.nflxext.com/ffe/siteui/vlv3/8ef88e03-6f89-4c75-ae51-f8da7d252358/6ac07e5f-07ca-4543-8540-f22edce8bb02/TW-en-20210208-popsignuptwoweeks-perspective_alpha_website_large.jpg);
+}
