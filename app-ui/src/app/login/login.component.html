@@ -1,37 +1,4 @@
-<!-- <div class="login-container">
-  <div class="login-form">
-    <h2 class="text-center mb-4">Login</h2>
-    <form>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="Enter email"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Enter password"
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-</div> -->
-<section
-  class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark"
-  style="
-    min-height: 100vh;
-    background-size: cover;
-    background-image: url(https://assets.nflxext.com/ffe/siteui/vlv3/8ef88e03-6f89-4c75-ae51-f8da7d252358/6ac07e5f-07ca-4543-8540-f22edce8bb02/TW-en-20210208-popsignuptwoweeks-perspective_alpha_website_large.jpg);
-  "
->
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark login-section">
   <div class="container-fluid">
     <div
       class="row justify-content-center align-items-center d-flex-row text-center h-100"
@@ -45,17 +12,12 @@
             <h2 class="login">
               <span>Login</span>
             </h2>
-            <form
-              (ngSubmit)="login()"
-              [formGroup]="applyForm"
-              autocomplete="off"
-            >
+            <form (ngSubmit)="login()" [formGroup]="form" autocomplete="off">
               <div class="mx-4">
                 <div class="mb-3">
                   <input
                     type="email"
                     class="form-control"
-                    id="signInEmail"
                     placeholder="Email"
                     formControlName="email"
                   />
@@ -64,18 +26,17 @@
                   <input
                     type="password"
                     class="form-control"
-                    id="signInPassword"
                     placeholder="Password"
                     formControlName="password"
                   />
                 </div>
-                <button type="submit" class="btn btn-success btn-block">
+                <button type="submit" class="btn btn-outline-primary btn-block">
                   Sign in
                 </button>
               </div>
               <p class="my-3 text-center">
                 Don't have an account?
-                <a href="">Sign up</a>
+                <a [routerLink]="['/register']">Sign up</a>
               </p>
             </form>
           </div>
