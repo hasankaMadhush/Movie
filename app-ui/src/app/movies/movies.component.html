@@ -13,17 +13,6 @@
         [results]="movies.length"
       ></app-results-count>
     </div>
-    <!-- <div
-      class="mx-2 my-auto text-muted"
-      *ngIf="offset !== totalPages; else elseBlock"
-    >
-      {{ movies.length * offset }} / {{ totalMovieCount }} results
-    </div>
-    <ng-template #elseBlock>
-      <div class="mx-2 my-auto text-muted">
-        {{ totalMovieCount }} / {{ totalMovieCount }} results
-      </div>
-    </ng-template> -->
     <app-search (onSearch)="getMovies($event)"></app-search>
   </div>
   <app-movie-table
