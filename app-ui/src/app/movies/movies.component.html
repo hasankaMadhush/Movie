@@ -1,28 +1,31 @@
-<div class="container-fluid">
-  <h1>Movies</h1>
-  <section class="px-2"></section>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Released Year</th>
-        <th>Run time(Minutes)</th>
-        <th>Genres</th>
-        <th>Add to Collection</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let movie of movies">
-        <td>{{ movie.title }}</td>
-        <td>{{ movie.year }}</td>
-        <td>{{ movie.runTimeInMinutes }}</td>
-        <td>{{ movie.genres.join(", ") }}</td>
-        <th><fa-icon [icon]="faHeart" color="red"></fa-icon></th>
-      </tr>
-    </tbody>
-  </table>
-  <!-- <app-movie-table-row
-        *ngFor="let movie of movies"
-        [movie]="movie"
-      ></app-movie-table-row> -->
+<app-hero-section
+  title="{{ heroTitle }}"
+  content="{{ heroContent }}"
+></app-hero-section>
+<div class="container-fluid px-4">
+  <div class="d-flex justify-content-end mt-3 w-100">
+    <h1 *ngIf="showToast">Hello</h1>
+    <div
+      class="mx-2 my-auto text-muted"
+      *ngIf="offset !== totalPages; else elseBlock"
+    >
+      {{ movies.length * offset }} / {{ totalMovieCount }} results
+    </div>
+    <ng-template #elseBlock>
+      <div class="mx-2 my-auto text-muted">
+        {{ totalMovieCount }} / {{ totalMovieCount }} results
+      </div>
+    </ng-template>
+    <app-search (onSearch)="getMovies($event)"></app-search>
+  </div>
+  <app-movie-table
+    [movies]="movies"
+    [addToCollection]="addToCollection"
+    source="{{ sourceTypes.movie }}"
+  ></app-movie-table>
+  <app-pagination
+    [currentPage]="offset"
+    [totalPages]="totalPages"
+    (pageChanged)="setCurrentPage($event)"
+  ></app-pagination>
 </div>

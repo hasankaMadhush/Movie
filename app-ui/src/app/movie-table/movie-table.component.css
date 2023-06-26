@@ -1,0 +1,13 @@
+.title {
+  width: 20%;
+}
+
+@media only screen and (max-width: 900px) {
+  .hide {
+    display: none;
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
