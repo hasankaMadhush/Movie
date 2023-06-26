@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { ApiService } from './api.service';
 import User from 'src/app/interfaces/user.interface';
@@ -14,13 +15,14 @@ export class AuthService {
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   loggedInUser = this._loggedInUser$.asObservable();
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private router: Router) {
     this.isLoggedIn();
   }
 
   isLoggedIn(): void {
     this._isLoggedIn$.next(!!localStorage.getItem('jwt'));
     this._loggedInUser$.next(JSON.parse(localStorage.getItem('user') || '{}'));
+    this.redirect();
   }
 
   // login users
@@ -46,5 +48,12 @@ export class AuthService {
     this._isLoggedIn$.next(false);
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
+  }
+
+  // redirect to login if user is not logged in
+  redirect() {
+    if (!localStorage.getItem('jwt')) {
+      this.router.navigate(['/login']);
+    }
   }
 }
