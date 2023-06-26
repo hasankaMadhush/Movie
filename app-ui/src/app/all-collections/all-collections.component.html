@@ -1,1 +1,13 @@
-<p>all-collections works!</p>
+<app-hero-section title="{{ title }}" content="{{ content }}">
+</app-hero-section>
+<div class="container-fluid px-4">
+  <div class="d-flex justify-content-end mt-3 w-100">
+    <app-search (onSearch)="getCollections($event)"></app-search>
+  </div>
+  <app-collections-table
+    [headers]="header"
+    [collections]="collections"
+    [all]="isAll"
+  >
+  </app-collections-table>
+</div>

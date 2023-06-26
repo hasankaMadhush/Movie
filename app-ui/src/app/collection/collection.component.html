@@ -1,0 +1,17 @@
+<app-hero-section title="{{ title }}" content="{{ content }}">
+</app-hero-section>
+<div class="container-fluid px-4">
+  <div class="d-flex d-flex-row justify-content-end mt-3 w-100">
+    <button class="btn btn-outline-secondary mx-2" (click)="goBack()">
+      <fa-icon [icon]="faArrowLeftLong" class="mr-2" />
+      Back to list
+    </button>
+    <app-search (onSearch)="search($event)"></app-search>
+  </div>
+
+  <app-movie-table
+    [movies]="movies || []"
+    source="{{ sourceTypes.collection }}"
+  >
+  </app-movie-table>
+</div>
