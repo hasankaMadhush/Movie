@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import * as dayjs from 'dayjs';
@@ -29,9 +29,7 @@ const {
   templateUrl: './my-collections.component.html',
   styleUrls: ['./my-collections.component.css'],
 })
-export class MyCollectionsComponent implements OnInit {
-  @ViewChild('closeBtn') closebutton: any;
-
+export class MyCollectionsComponent {
   dayjs = dayjs;
   faTrash = faTrash;
   faPlus = faPlus;
@@ -94,8 +92,7 @@ export class MyCollectionsComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.getAll();
-          // this.activeModal.close();
-          this.closebutton.nativeElement.click();
+          // this.activeModal.close(); // not working as expected, need troubleshooting
         }
       });
   }
