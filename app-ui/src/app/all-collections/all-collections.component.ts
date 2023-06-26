@@ -23,6 +23,9 @@ export class AllCollectionsComponent {
 
   collections: Collection[] = [];
   isAll: boolean = true;
+  totalCollectionsCount: number = 0;
+  offset: number = defaultOffset;
+  totalPages: number = 0;
   header = ['#', 'Name', 'Movies', 'Created By', 'Created on'];
   title: string = 'Collections';
   content: string = `Step into a world of cinematic wonders! Discover a curated collection of 
@@ -43,7 +46,16 @@ export class AllCollectionsComponent {
    */
   getOthers(search: string = '') {
     this.collectionService
-      .getOthers(defaultLimit, defaultOffset - 1, search)
-      .subscribe((response) => (this.collections = response.data));
+      .getOthers(defaultLimit, this.offset - 1, search)
+      .subscribe((response) => {
+        this.totalCollectionsCount = response.data.count;
+        this.collections = response.data.collections;
+        this.totalPages = Math.ceil(this.totalCollectionsCount / defaultLimit);
+      });
+  }
+
+  setCurrentPage(currentPage: number) {
+    this.offset = currentPage;
+    this.getOthers();
   }
 }

@@ -2,6 +2,14 @@
 </app-hero-section>
 <div class="container-fluid px-4">
   <div class="d-flex justify-content-end mt-3 w-100">
+    <div class="my-auto">
+      <app-results-count
+        [offset]="offset"
+        [totalPages]="totalPages"
+        [totalRecords]="totalCollectionsCount"
+        [results]="collections.length"
+      ></app-results-count>
+    </div>
     <app-search (onSearch)="getOthers($event)"></app-search>
   </div>
   <app-collections-table
@@ -10,4 +18,9 @@
     [all]="isAll"
   >
   </app-collections-table>
+  <app-pagination
+    [currentPage]="offset"
+    [totalPages]="totalPages"
+    (pageChanged)="setCurrentPage($event)"
+  ></app-pagination>
 </div>

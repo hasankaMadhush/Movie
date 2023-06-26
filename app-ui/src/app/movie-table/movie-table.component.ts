@@ -48,6 +48,6 @@ export class MovieTableComponent {
   generateCollectionList() {
     this.collectionService
       .getMine(defaultCollectionSuggestionList, 0)
-      .subscribe((response) => (this.collections = response.data));
+      .subscribe((response) => (this.collections = response.data.collections));
   }
 }

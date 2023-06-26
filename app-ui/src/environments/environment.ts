@@ -3,6 +3,6 @@ export const environment = {
   defaultLimit: 50,
   defaultOffset: 1,
   defaultDashboardCollectionLimit: 5,
-  defaultDashboardMovieLimit: 5,
+  defaultDashboardMovieLimit: 10,
   defualtDateFormat: 'DD/MM/YYYY',
 };
