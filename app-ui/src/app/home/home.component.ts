@@ -63,7 +63,7 @@ export class HomeComponent {
     this.collectionService
       .getMine(defaultDashboardCollectionLimit, defaultOffset - 1)
       .subscribe((response) => {
-        this.latestCollections = response.data;
+        this.latestCollections = response.data.collections;
       });
   }
 
@@ -72,7 +72,7 @@ export class HomeComponent {
     this.collectionService
       .getOthers(defaultDashboardCollectionLimit, defaultOffset - 1, search)
       .subscribe((response) => {
-        this.exploreCollections = response.data;
+        this.exploreCollections = response.data.collections;
       });
   }
 

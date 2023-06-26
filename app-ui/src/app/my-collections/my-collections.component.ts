@@ -38,6 +38,9 @@ export class MyCollectionsComponent {
   collections: Collection[] = [];
   movies: Movie[] = [];
   isAllCollections = false;
+  totalCollectionsCount: number = 0;
+  offset: number = defaultOffset;
+  totalPages: number = 0;
   loggedInUser: User | null | undefined;
   dateFormat: string = defualtDateFormat;
   header: string[] = ['#', 'Name', 'Movies', 'Created on', ''];
@@ -70,14 +73,18 @@ export class MyCollectionsComponent {
 
   getAll(search: string = '') {
     this.collectionService
-      .getMine(defaultLimit, defaultOffset - 1, search)
-      .subscribe((response) => (this.collections = response.data));
+      .getMine(defaultLimit, this.offset - 1, search)
+      .subscribe((response) => {
+        this.totalCollectionsCount = response.data.count;
+        this.collections = response.data.collections;
+        this.totalPages = Math.ceil(this.totalCollectionsCount / defaultLimit);
+      });
   }
 
   // gets movies for search function in create collection modal
   getMovies(search: string = '') {
     this.movieService
-      .getMovies(defaultDashboardCollectionLimit, defaultOffset - 1, search)
+      .getMovies(defaultDashboardCollectionLimit, this.offset - 1, search)
       .subscribe((response) => (this.movies = response.data.movies));
   }
 
@@ -101,5 +108,10 @@ export class MyCollectionsComponent {
   addToList(value: Movie) {
     this.form.value.movies.push(value);
     this.movies = []; // resets the search results in order to hide the search result section
+  }
+
+  setCurrentPage(currentPage: number) {
+    this.offset = currentPage;
+    this.getAll();
   }
 }

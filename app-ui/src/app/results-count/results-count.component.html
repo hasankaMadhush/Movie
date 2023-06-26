@@ -1,0 +1,11 @@
+<div
+  class="mx-2 my-auto text-muted"
+  *ngIf="offset !== totalPages; else elseBlock"
+>
+  {{ results * offset }} / {{ totalRecords }} results
+</div>
+<ng-template #elseBlock>
+  <div class="mx-2 my-auto text-muted">
+    {{ totalRecords }} / {{ totalRecords }} results
+  </div>
+</ng-template>

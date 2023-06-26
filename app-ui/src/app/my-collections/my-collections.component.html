@@ -5,6 +5,14 @@
 <div class="container-fluid px-4">
   <div class="mt-3">
     <div class="d-flex justify-content-md-end">
+      <div class="my-auto">
+        <app-results-count
+          [offset]="offset"
+          [totalPages]="totalPages"
+          [totalRecords]="totalCollectionsCount"
+          [results]="collections.length"
+        ></app-results-count>
+      </div>
       <button
         class="btn btn-outline-primary btn-sm mx-2"
         data-bs-toggle="modal"
@@ -21,6 +29,11 @@
       [headers]="header"
     ></app-collections-table>
   </div>
+  <app-pagination
+    [currentPage]="offset"
+    [totalPages]="totalPages"
+    (pageChanged)="setCurrentPage($event)"
+  ></app-pagination>
 </div>
 
 <div
