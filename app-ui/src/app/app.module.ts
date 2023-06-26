@@ -27,7 +27,6 @@ import routeConfig from './app.routes';
 import { SearchComponent } from './search/search.component';
 import { SignupComponent } from './signup/signup.component';
 import { ToastComponent } from './toast/toast.component';
-import { ResultsCountComponent } from './results-count/results-count.component';
 
 @NgModule({
   declarations: [
