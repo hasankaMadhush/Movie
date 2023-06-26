@@ -7,17 +7,20 @@ import {
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { AuthService } from '../services/auth.service';
-import Collection from '../interfaces/collection.interface';
-import { CollectionService } from '../services/collection.service';
-import Movie from '../interfaces/movie.interface';
-import { MovieService } from '../services/movie.service';
-import User from '../interfaces/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
+import Collection from 'src/app/interfaces/collection.interface';
+import { CollectionService } from 'src/app/services/collection.service';
+import { environment } from 'src/environments/environment';
+import Movie from 'src/app/interfaces/movie.interface';
+import { MovieService } from 'src/app/services/movie.service';
+import User from 'src/app/interfaces/user.interface';
 
-// ideally these values should come from env config
-const MOVIE_LIMIT = 10;
-const COLLECTION_LIMIT = 5;
-const BASE_OFFSET = 0;
+const {
+  defaultDashboardMovieLimit,
+  defaultDashboardCollectionLimit,
+  defaultOffset,
+  defualtDateFormat,
+} = environment;
 
 @Component({
   selector: 'app-home',
@@ -32,6 +35,7 @@ export class HomeComponent {
   user: User | undefined | null;
   latestCollections: Collection[] = [];
   exploreCollections: Collection[] = [];
+  dateFormat: string = defualtDateFormat;
   latestMovies: Movie[] = [];
   content = `Welcome to "My Movies" - Your Personal Film Sanctuary! Enter a realm where movies come
    alive and stories unfold. Immerse yourself in a world of cinematic wonders, where you can
@@ -46,7 +50,7 @@ export class HomeComponent {
     private movieService: MovieService,
     private router: Router
   ) {
-    this.authService.isLoggedInUser.subscribe(
+    this.authService.loggedInUser.subscribe(
       (response) => (this.user = response)
     );
     this.getLatestCollectionList();
@@ -54,32 +58,37 @@ export class HomeComponent {
     this.getLatestMovieList();
   }
 
+  // get latest collection of logged in user
   getLatestCollectionList() {
     this.collectionService
-      .getMyCollections(COLLECTION_LIMIT, BASE_OFFSET)
+      .getMine(defaultDashboardCollectionLimit, defaultOffset - 1)
       .subscribe((response) => {
         this.latestCollections = response.data;
       });
   }
 
+  // get other users collections
   getExploreCollectionList(search: string = '') {
     this.collectionService
-      .getOthersCollections(COLLECTION_LIMIT, BASE_OFFSET, search)
+      .getOthers(defaultDashboardCollectionLimit, defaultOffset - 1, search)
       .subscribe((response) => {
         this.exploreCollections = response.data;
       });
   }
 
+  // get latest movies
   getLatestMovieList() {
     this.movieService
-      .getMovies(MOVIE_LIMIT)
+      .getMovies(defaultDashboardMovieLimit)
       .subscribe((response) => (this.latestMovies = response.data.movies));
   }
 
+  // navigate to selected collection page
   navigateToCollection(id: string) {
     this.router.navigate(['collections', id]);
   }
 
+  // navigates to selected movie page
   navigateToMovie(id: string) {
     this.router.navigate(['movie', id]);
   }

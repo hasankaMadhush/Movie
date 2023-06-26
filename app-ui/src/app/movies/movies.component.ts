@@ -62,7 +62,7 @@ export class MoviesComponent {
 
   generateCollectionList() {
     this.collectionService
-      .getMyCollections(this.limit, this.offset - 1)
+      .getMine(this.limit, this.offset - 1)
       .subscribe((response) => {
         this.collections = response.data;
       });

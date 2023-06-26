@@ -1,8 +1,10 @@
 interface Movie {
+  _id: string;
   title: string;
-  runTimeInMinutes: number;
-  year: number;
-  genres: string[];
+  releaseDate: string;
+  language: string;
+  overview: string;
+  poster: string;
 }
 
 export default Movie;

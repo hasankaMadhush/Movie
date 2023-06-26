@@ -1,6 +1,10 @@
 .navbar {
   background-color: #212529;
   color: white !important;
+  /* height: 75px; */
+}
+.navbar-toggler {
+  background-color: white !important;
 }
 .navbar-brand {
   color: #ff0000 !important;
@@ -21,11 +25,4 @@
 
 .nav-link {
   color: white !important;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Satisfy&display=swap");
-
-.font-family-satisfy {
-  font-family: "Satisfy", cursive;
-  font-size: 32px;
 }
