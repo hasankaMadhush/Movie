@@ -1,28 +1,25 @@
 import { Injectable } from '@angular/core';
+
 import { ApiService } from './api.service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import Movie from 'src/app/interfaces/movie.interface';
+import { environment } from 'src/environments/environment';
+
+const { defaultLimit, defaultOffset } = environment;
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  _movies$ = new BehaviorSubject<Movie[]>([]);
-  movies = this._movies$.asObservable();
+  constructor(private apiService: ApiService) {}
 
-  constructor(private apiService: ApiService) {
-    this.getMovies();
+  getMovies(
+    limit: number = defaultLimit,
+    offset: number = defaultOffset,
+    search: string = ''
+  ) {
+    return this.apiService.getMovies(limit, offset, search);
   }
 
-  getMovies(limit: number = 50, offset: number = 0, search: string = '') {
-    console.log('query offset::', offset);
-    return this.apiService.getMovies(limit, offset, search);
-    // .pipe(
-    // tap((response: any) => {
-    //   const { movies = [] } = response.data;
-    //   console.log('movies:', movies);
-    //   this._movies$.next(movies);
-    // })
-    // );
+  getMovie(id: string) {
+    return this.apiService.getMovie(id);
   }
 }

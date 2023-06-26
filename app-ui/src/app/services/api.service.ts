@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const server: string = 'http://localhost:4000/api';
+import { environment } from 'src/environments/environment';
+
+const { server, defaultLimit, defaultOffset, defaultDashboardCollectionLimit } =
+  environment;
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +20,7 @@ export class ApiService {
     });
   }
 
-  register(
-    name: string,
-    email: string,
-    password: string,
-    role: string = 'user'
-  ): Observable<any> {
-    console.log(':::', {
-      name,
-      email,
-      password,
-    });
+  register(name: string, email: string, password: string): Observable<any> {
     return this.http.post(`${server}/users/register`, {
       name,
       email,
@@ -36,8 +29,8 @@ export class ApiService {
   }
 
   getMovies(
-    limit: number = 50,
-    offset: number = 0,
+    limit: number = defaultLimit,
+    offset: number = defaultOffset - 1, // should be zero
     search: string = ''
   ): Observable<any> {
     return this.http.get(
@@ -47,8 +40,8 @@ export class ApiService {
 
   getMyCollections(
     id: string,
-    limit: number = 5,
-    offset: number = 0,
+    limit: number = defaultDashboardCollectionLimit,
+    offset: number = defaultOffset - 1, // should be zero
     search: string = ''
   ): Observable<any> {
     return this.http.get(
@@ -58,8 +51,8 @@ export class ApiService {
 
   getOthersCollections(
     id: string,
-    limit = 5,
-    offset = 0,
+    limit = defaultDashboardCollectionLimit,
+    offset = defaultOffset - 1, // should be zero
     search = ''
   ): Observable<any> {
     return this.http.get(
