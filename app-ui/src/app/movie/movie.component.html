@@ -1,0 +1,24 @@
+<div class="container-fluid px-4">
+  <div class="row my-4">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <img src="{{ movie.poster }}" class="shadow" />
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex w-100 justify-content-between">
+        <h1 class="my-4">{{ movie.title }}</h1>
+        <fa-icon [icon]="faCirclePlus" class="my-auto" size="2x"></fa-icon>
+      </div>
+      <p class="fw-bold">Overview</p>
+      <hr />
+      <p class="mb-3 lead">{{ movie.overview }}</p>
+      <p class="fw-bold text-uppercase">Language: {{ movie.language }}</p>
+      <p class="fw-bold mb-3">
+        Released on: {{ dayjs(movie.releaseDate).format(dateFormat) }}
+      </p>
+      <button class="btn btn-outline-secondary" (click)="goBack()">
+        <fa-icon [icon]="faArrowLeftLong" class="mr-2" />
+        Back to list
+      </button>
+    </div>
+  </div>
+</div>

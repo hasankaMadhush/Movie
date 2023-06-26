@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-
-import { AuthService } from './services/authService/auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +8,9 @@ import { AuthService } from './services/authService/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'app-ui';
-  faRightFromBracket = faRightFromBracket;
-  authService: AuthService;
+  public authLib: AuthService;
 
-  constructor(authService: AuthService) {
-    this.authService = authService;
+  constructor(private authService: AuthService) {
+    this.authLib = authService;
   }
 }

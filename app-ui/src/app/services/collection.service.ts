@@ -20,7 +20,7 @@ export class CollectionService {
     private apiService: ApiService,
     private authService: AuthService
   ) {
-    this.authService.isLoggedInUser.subscribe((value) => {
+    this.authService.loggedInUser.subscribe((value) => {
       console.log('user CollectionService:', value);
       this.loggedInUser = value;
     });
@@ -44,7 +44,11 @@ export class CollectionService {
     );
   }
 
-  addToCollection(collection: Collection, movie: Movie) {
+  addMovies(collection: Collection, movie: Movie) {
     return this.apiService.addMoviesToCollection(collection._id, [movie._id]);
+  }
+
+  create(name: string, userId: string, movieIds: string[]) {
+    return this.apiService.createCollection(name, userId, movieIds);
   }
 }

@@ -9,10 +9,10 @@ import User from 'src/app/interfaces/user.interface';
 })
 export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
-  private _isLoggedInUser$ = new BehaviorSubject<User | null>(null);
+  private _loggedInUser$ = new BehaviorSubject<User | null>(null);
 
   isLoggedIn$ = this._isLoggedIn$.asObservable();
-  isLoggedInUser = this._isLoggedInUser$.asObservable();
+  loggedInUser = this._loggedInUser$.asObservable();
 
   constructor(private apiService: ApiService) {
     this.isLoggedIn();
@@ -20,32 +20,28 @@ export class AuthService {
 
   isLoggedIn(): void {
     this._isLoggedIn$.next(!!localStorage.getItem('jwt'));
-    this._isLoggedInUser$.next(
-      JSON.parse(localStorage.getItem('user') || '{}')
-    );
+    this._loggedInUser$.next(JSON.parse(localStorage.getItem('user') || '{}'));
   }
 
+  // login users
   login(username: string, password: string) {
     return this.apiService.login(username, password).pipe(
       tap((response: any) => {
         const { user, token } = response.data || '';
         this._isLoggedIn$.next(!!token);
-        this._isLoggedInUser$.next(user);
+        this._loggedInUser$.next(user);
         localStorage.setItem('jwt', token);
         localStorage.setItem('user', JSON.stringify(user));
       })
     );
   }
 
-  register(
-    name: string,
-    email: string,
-    password: string,
-    role: string = 'user'
-  ) {
-    return this.apiService.register(name, email, password, role);
+  // register a default user - role is not supported atm
+  register(name: string, email: string, password: string) {
+    return this.apiService.register(name, email, password);
   }
 
+  //logout from application
   logout(): void {
     this._isLoggedIn$.next(false);
   }

@@ -1,0 +1,65 @@
+<table class="table table-hover my-3">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th class="w-25 hide">Overview</th>
+      <th class="hide">Language</th>
+      <th>Released Date</th>
+      <th>Add to Collection</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies; let indexOfelement = index">
+      <td class="align-middle">{{ indexOfelement + 1 }}</td>
+      <td class="align-middle title" (click)="navigateToCollection(movie._id)">
+        <img
+          src="{{ movie.poster }}"
+          class="rounded float-start my-auto hide"
+          alt="..."
+          height="50"
+          width="50"
+        />
+        <span class="mx-2 fs-6 fw-bold title">{{ movie.title }}</span>
+      </td>
+      <td class="w-50 hide" (click)="navigateToCollection(movie._id)">
+        {{ movie.overview }}
+      </td>
+      <td class="hide text-uppercase" (click)="navigateToCollection(movie._id)">
+        {{ movie.language }}
+      </td>
+      <td (click)="navigateToCollection(movie._id)">
+        {{ dayjs(movie.releaseDate).format(dateFormat) }}
+      </td>
+      <td *ngIf="source === sourceTypes.movie; else collectionTypeBlock">
+        <div class="btn-group">
+          <fa-icon
+            class="dropdown-toggle btn-sm mx-2"
+            [icon]="faHeart"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            size="2x"
+          ></fa-icon>
+          <ul class="dropdown-menu">
+            <li
+              class="dropdown-item"
+              *ngFor="let collection of collections"
+              (click)="addToCollection(collection, movie)"
+            >
+              {{ collection.name }}
+            </li>
+          </ul>
+        </div>
+      </td>
+      <ng-template #collectionTypeBlock>
+        <td>
+          <fa-icon
+            class="my-auto delete-icon"
+            [icon]="faTrash"
+            color="red"
+          ></fa-icon>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
