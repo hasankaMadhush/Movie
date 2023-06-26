@@ -47,7 +47,7 @@ const routes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'movies',
+    redirectTo: 'login',
   },
 ];
 
