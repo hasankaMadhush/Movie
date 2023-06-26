@@ -33,7 +33,7 @@ export class AllCollectionsComponent {
     Welcome to a collections made by other ultimate movie enthusiasts!`;
 
   constructor(private collectionService: CollectionService) {
-    this.getCollections();
+    this.getOthers();
   }
 
   /**
@@ -41,7 +41,7 @@ export class AllCollectionsComponent {
    * supports search functionality
    * @param search
    */
-  getCollections(search: string = '') {
+  getOthers(search: string = '') {
     this.collectionService
       .getOthers(defaultLimit, defaultOffset - 1, search)
       .subscribe((response) => (this.collections = response.data));
