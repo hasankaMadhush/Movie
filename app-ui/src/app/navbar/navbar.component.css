@@ -2,6 +2,9 @@
   background-color: #212529;
   color: white !important;
 }
+.navbar-toggler {
+  background-color: white !important;
+}
 .navbar-brand {
   color: #ff0000 !important;
   background: #ff0000;
@@ -15,17 +18,8 @@
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   background-clip: text;
-  /* -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
 }
 
 .nav-link {
   color: white !important;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Satisfy&display=swap");
-
-.font-family-satisfy {
-  font-family: "Satisfy", cursive;
-  font-size: 32px;
 }

@@ -14,11 +14,7 @@
             <h2 class="signup">
               <span>Sign up</span>
             </h2>
-            <form
-              (ngSubmit)="register()"
-              [formGroup]="registerForm"
-              autocomplete="off"
-            >
+            <form (ngSubmit)="register()" [formGroup]="form" autocomplete="off">
               <div class="mx-4">
                 <div class="mb-3">
                   <input

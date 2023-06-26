@@ -68,7 +68,7 @@ export class ApiService {
     return this.http.post(`${server}/collections`, { name, createdBy, movies });
   }
 
-  getCollection(id: string): Observable<any> {
+  get(id: string): Observable<any> {
     return this.http.get(`${server}/collections/${id}`);
   }
 

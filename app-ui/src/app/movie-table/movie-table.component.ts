@@ -47,7 +47,7 @@ export class MovieTableComponent {
   // generates the data for add to collection dropdown
   generateCollectionList() {
     this.collectionService
-      .getMyCollections(defaultCollectionSuggestionList, 0)
+      .getMine(defaultCollectionSuggestionList, 0)
       .subscribe((response) => (this.collections = response.data));
   }
 }

@@ -19,10 +19,10 @@
         (click)="navigateToMovie(movie._id)"
       >
         <div class="content">
-          <p class="date">
+          <p class="date text-uppercase">
             Released On:
-            {{ dayjs(movie.releaseDate).format("YYYY-MM-DD") }} ({{
-              movie.language.toUpperCase()
+            {{ dayjs(movie.releaseDate).format(dateFormat) }} ({{
+              movie.language
             }})
           </p>
           <p class="title">{{ movie.title }}</p>
@@ -51,7 +51,7 @@
       >
         <div class="content">
           <p class="date">
-            {{ dayjs(collection.createdAt).format("YYYY-MM-DD") }}
+            {{ dayjs(collection.createdAt).format(dateFormat) }}
           </p>
           <p class="title">{{ collection.name }}</p>
         </div>
@@ -78,7 +78,7 @@
       >
         <div class="content">
           <p class="date">
-            {{ dayjs(collection.createdAt).format("YYYY-MM-DD") }}
+            {{ dayjs(collection.createdAt).format(dateFormat) }}
           </p>
           <p class="title">{{ collection.name }}</p>
         </div>
