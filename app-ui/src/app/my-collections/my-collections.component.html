@@ -1,1 +1,111 @@
-<p>my-collections works!</p>
+<app-hero-section
+  title="{{ title }}"
+  content="{{ content }}"
+></app-hero-section>
+<div class="container-fluid px-4">
+  <div class="mt-3">
+    <div class="d-flex justify-content-md-end">
+      <button
+        class="btn btn-outline-primary btn-sm mx-2"
+        data-bs-toggle="modal"
+        data-bs-target="#createNewModal"
+      >
+        <fa-icon class="my-auto mr-2 fontawesom-icon" [icon]="faPlus" />
+        New
+      </button>
+      <app-search (onSearch)="getAll($event)"></app-search>
+    </div>
+    <app-collections-table
+      [all]="isAllCollections"
+      [collections]="collections"
+      [headers]="header"
+    ></app-collections-table>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="createNewModal"
+  tabindex="-1"
+  aria-labelledby="createNewModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Collection</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form (ngSubmit)="create()" [formGroup]="form" autocomplete="off">
+        <div class="modal-body">
+          <div class="mx-4">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                formControlName="name"
+              />
+            </div>
+            <div class="mb-3" *ngIf="form.value.movies?.length > 0">
+              <p class="fw-bold">Selected Movies</p>
+              <ul>
+                <li *ngFor="let movie of form.value.movies">
+                  {{ movie?.title }}({{
+                    dayjs(movie.createdAt).format(dateFormat)
+                  }})
+                </li>
+              </ul>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Add movies</label>
+              <app-search (onSearch)="getMovies($event)"></app-search>
+            </div>
+            <div class="mb-3">
+              <div *ngFor="let movie of movies">
+                <div class="d-flex justify-content-between mb-2">
+                  <div>
+                    <p class="fw-bold">
+                      {{ movie?.title }} ({{
+                        dayjs(movie.releaseDate).format(dateFormat)
+                      }})
+                    </p>
+                  </div>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    (click)="addToList(movie)"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-success mx-2"
+            data-bs-dismiss="modal"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            id="closeBtn"
+            class="btn btn-warning"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

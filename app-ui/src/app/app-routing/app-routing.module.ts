@@ -1,30 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
-import { AllCollectionsComponent } from '../all-collections/all-collections.component';
-import { LoginComponent } from '../login/login.component';
-import { MoviesComponent } from '../movies/movies.component';
-import { MyCollectionsComponent } from '../my-collections/my-collections.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { SignupComponent } from '../signup/signup.component';
+import { AllCollectionsComponent } from 'src/app/all-collections/all-collections.component';
+import { CollectionComponent } from 'src/app/collection/collection.component';
+import { HomeComponent } from 'src/app/home/home.component';
+import { LoginComponent } from 'src/app/login/login.component';
+import { MovieComponent } from 'src/app/movie/movie.component';
+import { MoviesComponent } from 'src/app/movies/movies.component';
+import { MyCollectionsComponent } from 'src/app/my-collections/my-collections.component';
+import { SignupComponent } from 'src/app/signup/signup.component';
 
 const routes: Route[] = [
   {
     path: '',
-    component: NavbarComponent,
+    component: HomeComponent,
+  },
+  {
+    path: 'movie/:id',
+    component: MovieComponent,
   },
   {
     path: 'movies',
     component: MoviesComponent,
   },
   {
-    path: 'collections',
+    path: 'my-collections',
     component: MyCollectionsComponent,
   },
   {
-    path: 'collections/all',
+    path: 'collections/:id',
+    component: CollectionComponent,
+  },
+  {
+    path: 'collections',
     component: AllCollectionsComponent,
   },
+
   {
     path: 'login',
     component: LoginComponent,
