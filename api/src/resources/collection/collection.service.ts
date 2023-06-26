@@ -27,7 +27,7 @@ class CollectionService {
       const collection = await this.collection
         .findById({ _id: id })
         .populate({ path: 'owner', select: '_id name' })
-        .populate({ path: 'movies', select: '_id title' });
+        .populate({ path: 'movies' });
       if (!collection) {
         throw new Error('Movie Collection not found.');
       }

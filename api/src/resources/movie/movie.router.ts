@@ -19,7 +19,7 @@ class MovieRouter implements RouterInterace {
   private initialiseRoutes(): void {
     this.router.get(
       `${this.path}`,
-      authenticatedMiddleware([Roles.Admin, Roles.User]),
+      // authenticatedMiddleware([Roles.Admin, Roles.User]),
       // validationMiddleware(validate.getAll),
       this.MovieController.getAll
     );
@@ -29,9 +29,9 @@ class MovieRouter implements RouterInterace {
       // validationMiddleware(validate.getBy),
       this.MovieController.getBy
     );
-    this.router.post(
+    this.router.get(
       `${this.path}/:id`,
-      authenticatedMiddleware([Roles.Admin, Roles.User]),
+      // authenticatedMiddleware([Roles.Admin, Roles.User]),
       // validationMiddleware(validate.getById),
       this.MovieController.getById
     );

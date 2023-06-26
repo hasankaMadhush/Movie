@@ -28,8 +28,13 @@ class UserRouter implements RouterInterace {
       this.UserController.authenticate
     );
     // add authentication middleware
+    this.router.get(
+      `${this.path}/:id/my-collections/search`,
+      this.UserController.searchMyCollectionsAndMovies
+    );
     this.router.get(`${this.path}/:id/my-collections`, this.UserController.getCollections);
-    this.router.get(`${this.path}/:id/other-collections`, this.UserController.getOtherCollections);
+
+    this.router.get(`${this.path}/:id/others-collections`, this.UserController.getOtherCollections);
   }
 }
 

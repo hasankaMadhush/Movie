@@ -9,7 +9,11 @@ class MovieService {
 
   public async getAll(limit: number = 50, offset: number = 0): Promise<Movie[] | Error> {
     try {
-      return await this.movie.find().skip(offset).limit(limit);
+      return await this.movie
+        .find()
+        .limit(limit)
+        .skip(offset * limit)
+        .sort({ createdAt: 'desc' });
     } catch (error) {
       throw new Error('Unable to get movies');
     }
@@ -24,8 +28,8 @@ class MovieService {
     try {
       return await this.movie
         .find({ [filterBy]: filterValue })
-        .skip(offset)
-        .limit(limit);
+        .limit(limit)
+        .skip(offset * limit);
     } catch (error) {
       throw new Error('Unable to get movies');
     }
@@ -40,6 +44,43 @@ class MovieService {
       return movie;
     } catch (error) {
       throw new Error('Unable to get movie');
+    }
+  }
+
+  public async search(
+    limit: number = 50,
+    offset: number = 0,
+    search: string = ''
+  ): Promise<Movie[] | Error> {
+    try {
+      return await this.movie
+        .find({
+          title: { $regex: new RegExp(search, 'i') },
+        })
+        .limit(limit)
+        .skip(offset * limit);
+    } catch (error: any) {
+      throw new Error(`Unable to search movies: ${error.message}`);
+    }
+  }
+
+  public async countAll(): Promise<number | Error> {
+    try {
+      return await this.movie.count();
+    } catch (error: any) {
+      throw new Error(`Unable to count all movies: ${error.message}`);
+    }
+  }
+
+  public async searchCount(search: string): Promise<number | Error> {
+    try {
+      return await this.movie
+        .find({
+          title: { $regex: new RegExp(search, 'i') },
+        })
+        .count();
+    } catch (error: any) {
+      throw new Error(`Unable to count all movies: ${error.message}`);
     }
   }
 }

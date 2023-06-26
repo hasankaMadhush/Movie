@@ -51,7 +51,17 @@ class UserController {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      responseMiddleware(res, HttpStatus.Ok, await this.UserService.getCollections(id));
+      const { limit = 5, offset = 0, search = '' } = req.query;
+      if (search) {
+        return responseMiddleware(res, HttpStatus.Ok, {
+          count: await this.UserService.searchCollectionsCount(id),
+          collections: await this.UserService.searchCollections(id, search.toString()),
+        });
+      }
+      responseMiddleware(res, HttpStatus.Ok, {
+        count: await this.UserService.getCollectionsCount(id),
+        collections: await this.UserService.getCollections(id, Number(limit), Number(offset)),
+      });
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }
@@ -64,7 +74,36 @@ class UserController {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      responseMiddleware(res, HttpStatus.Ok, await this.UserService.getOtherCollections(id));
+      const { limit = 5, offset = 0, search = '' } = req.query;
+      if (search) {
+        const searchText = search.toString();
+        return responseMiddleware(res, HttpStatus.Ok, {
+          count: await this.UserService.searchOthersCollectionsCount(id, searchText),
+          collections: await this.UserService.searchOthersCollections(id, searchText),
+        });
+      }
+      responseMiddleware(res, HttpStatus.Ok, {
+        count: await this.UserService.getOthersCollectionsCount(id),
+        collections: await this.UserService.getOthersCollections(id, Number(limit), Number(offset)),
+      });
+    } catch (error: any) {
+      next(new HttpException(HttpStatus.Bad_Request, error.message));
+    }
+  };
+
+  public searchMyCollectionsAndMovies = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      const { search = '' } = req.query;
+      responseMiddleware(
+        res,
+        HttpStatus.Ok,
+        await this.UserService.searchCollections(id, search.toString())
+      );
     } catch (error: any) {
       next(new HttpException(HttpStatus.Bad_Request, error.message));
     }
