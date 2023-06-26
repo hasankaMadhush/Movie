@@ -30,10 +30,9 @@ export class NavbarComponent implements OnInit {
   ];
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.loggedInUser.subscribe((value) => {
-      console.log('user:', value);
-      this.loggedInUser = value;
-    });
+    this.authService.loggedInUser.subscribe(
+      (user) => (this.loggedInUser = user)
+    );
   }
 
   logout(): void {
