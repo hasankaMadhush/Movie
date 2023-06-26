@@ -22,11 +22,11 @@ import { MovieTableComponent } from './movie-table/movie-table.component';
 import { MyCollectionsComponent } from './my-collections/my-collections.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ResultsCountComponent } from './results-count/results-count.component';
 import routeConfig from './app.routes';
 import { SearchComponent } from './search/search.component';
 import { SignupComponent } from './signup/signup.component';
 import { ToastComponent } from './toast/toast.component';
-import { ResultsCountComponent } from './results-count/results-count.component';
 
 @NgModule({
   declarations: [
