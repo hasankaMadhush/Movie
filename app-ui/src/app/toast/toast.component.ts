@@ -13,9 +13,4 @@ export class ToastComponent {
   handleClose() {
     this.onClose.emit(true);
   }
-
-  // ngOnInit() {
-  //   let toastList = [].slice.call(document.querySelectorAll('.toast'));
-  //   toastList.map((element) => new bootstrap.Toast(element, {}));
-  // }
 }
