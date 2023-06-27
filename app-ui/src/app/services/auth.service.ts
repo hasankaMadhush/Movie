@@ -27,6 +27,7 @@ export class AuthService {
     this._loggedInUser$.next(
       JSON.parse(localStorage.getItem(LOGGED_IN_USER) || '{}')
     );
+
   }
 
   // login users
@@ -56,5 +57,12 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem(ACCESS_TOKEN);
+  }
+
+  // redirect to login if user is not logged in
+  redirect() {
+    if (!localStorage.getItem('jwt')) {
+      this.router.navigate(['/login']);
+    }
   }
 }
