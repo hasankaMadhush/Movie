@@ -27,6 +27,7 @@
       [all]="isAllCollections"
       [collections]="collections"
       [headers]="header"
+      (delete)="delete($event)"
     ></app-collections-table>
   </div>
   <app-pagination
@@ -77,34 +78,39 @@
               </ul>
             </div>
             <div class="mb-3">
-              <label class="form-label">Add movies</label>
               <app-search (onSearch)="getMovies($event)"></app-search>
+              <hr />
             </div>
             <div class="mb-3">
-              <div *ngFor="let movie of movies">
-                <div class="d-flex justify-content-between mb-2">
-                  <div>
-                    <p class="fw-bold">
-                      {{ movie?.title }} ({{
-                        dayjs(movie.releaseDate).format(dateFormat)
-                      }})
-                    </p>
+              <div *ngIf="movies.length > 0; else elseBlock">
+                <div *ngFor="let movie of movies">
+                  <div class="d-flex flex-row justify-content-between mb-2">
+                    <div>
+                      <p class="fw-bold">
+                        {{ movie?.title }} ({{
+                          dayjs(movie.releaseDate).format(dateFormat)
+                        }})
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-primary btn-sm"
+                      (click)="addToList(movie)"
+                    >
+                      Add
+                    </button>
                   </div>
-                  <button
-                    class="btn btn-outline-primary btn-sm"
-                    (click)="addToList(movie)"
-                  >
-                    Add
-                  </button>
                 </div>
               </div>
+              <ng-template #elseBlock>
+                <div class="text-center">0 results...</div>
+              </ng-template>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button
             type="submit"
-            class="btn btn-success mx-2"
+            class="btn btn-outline-primary mx-2"
             data-bs-dismiss="modal"
           >
             Save
@@ -112,7 +118,7 @@
           <button
             type="button"
             id="closeBtn"
-            class="btn btn-warning"
+            class="btn btn-outline-warning"
             data-bs-dismiss="modal"
           >
             Close

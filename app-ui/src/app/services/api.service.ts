@@ -81,4 +81,14 @@ export class ApiService {
       movies: movieIds,
     });
   }
+
+  removeMoviesFromCollection(id: string, movieIds: string[]): Observable<any> {
+    return this.http.post(`${server}/collections/${id}/movies/remove`, {
+      movies: movieIds,
+    });
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${server}/collections/${id}`);
+  }
 }

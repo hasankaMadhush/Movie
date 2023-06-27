@@ -12,6 +12,9 @@
   <app-movie-table
     [movies]="movies || []"
     source="{{ sourceTypes.collection }}"
+    [isTheOwner]="isTheOwner"
+    [removeFromCollection]="removeFromCollection"
+    [collection]="collection"
   >
   </app-movie-table>
 </div>
