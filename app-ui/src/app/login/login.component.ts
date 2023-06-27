@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   form = new FormGroup({
-    email: new FormControl('test@gmail.com'),
-    password: new FormControl('123@intel'),
+    email: new FormControl(''),
+    password: new FormControl(''),
   });
 
   constructor(private authService: AuthService, private router: Router) {}

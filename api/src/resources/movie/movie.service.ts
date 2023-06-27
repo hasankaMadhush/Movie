@@ -2,11 +2,15 @@ import { Model } from 'mongoose';
 
 import Movie from 'resources/movie/movie.interface';
 import MovieModel from 'resources/movie/movie.model';
-import { MovieType } from 'utils/enums/movie.enums';
 
 class MovieService {
   private movie: Model<Movie> = MovieModel;
 
+  /**
+   * gets all movies
+   * limit, skip supported
+   * sort is supported only created timestamp only for atm.
+   */
   public async getAll(limit: number = 50, offset: number = 0): Promise<Movie[] | Error> {
     try {
       return await this.movie
@@ -19,22 +23,7 @@ class MovieService {
     }
   }
 
-  public async getBy(
-    filterBy: string = MovieType.Title,
-    filterValue: string = '',
-    limit: number = 50,
-    offset: number = 0
-  ): Promise<Movie[] | Error> {
-    try {
-      return await this.movie
-        .find({ [filterBy]: filterValue })
-        .limit(limit)
-        .skip(offset * limit);
-    } catch (error) {
-      throw new Error('Unable to get movies');
-    }
-  }
-
+  // get a single movie
   public async getById(_id: string): Promise<Movie | Error> {
     try {
       const movie = await this.movie.findById({ _id });
@@ -47,6 +36,12 @@ class MovieService {
     }
   }
 
+  /**
+   * search a movie by title
+   * improvements:
+   *  - search on release date
+   *  - search on overview content
+   */
   public async search(
     limit: number = 50,
     offset: number = 0,
@@ -64,6 +59,10 @@ class MovieService {
     }
   }
 
+  /**
+   * counts all movie records
+   * used for pagination/ results counter
+   */
   public async countAll(): Promise<number | Error> {
     try {
       return await this.movie.count();
@@ -72,6 +71,10 @@ class MovieService {
     }
   }
 
+  /**
+   * counts all movie records matching for given movie title
+   * used for pagination/ results counter
+   */
   public async searchCount(search: string): Promise<number | Error> {
     try {
       return await this.movie

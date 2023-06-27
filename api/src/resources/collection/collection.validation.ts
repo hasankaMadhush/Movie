@@ -4,7 +4,11 @@ Joi.objectId = require('joi-objectid')(Joi);
 const create = Joi.object({
   name: Joi.string().required(),
   createdBy: Joi.objectId().required(),
-  movies: Joi.array().items(Joi.objectId),
+  movies: Joi.array().items(Joi.string()),
 });
 
-export default { create };
+const addOrRemoveMovies = Joi.object({
+  movies: Joi.array().items(Joi.string()),
+});
+
+export default { create, addOrRemoveMovies };

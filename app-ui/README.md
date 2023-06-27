@@ -1,27 +1,51 @@
-# AppUi
+# Movie
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+This is the frontend for the Movie Application. Developed using Angular 16 along with bootstrap.
 
-## Development server
+Hosted with [vercel.com](https://vercel.com/)
+**Demo site**: [https://movie-kappa-seven.vercel.app/login](https://movie-kappa-seven.vercel.app)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**demo user**: **johndoe@test.com**
+**password**: **123@intel**
 
-## Code scaffolding
+## Table of Contents
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Introduction](#movie)
+- [Quickstart](#quickstart)
+- [To Do](#to-do)
+- [Challenges](#challenges)
+- [Notes](#notes)
+- [Screenshots](#screenshots)
 
-## Build
+## Quickstart
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Clone the repository `git clone https://github.com/hasankaMadhush/movie.git`
+- Move to the app-ui folder: `cd app-ui`
+- Install Dependencies: `npm install` or `npm i`
+- Start the Application using `ng serve` to start the dev environment.
+- Go to `http://localhost:4200` to go to application
 
-## Running unit tests
+## To Do
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Add to collection page to single movie view
+- Enable collection delete feature
+- Implement Admin views
 
-## Running end-to-end tests
+## Challenges
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Http Request and Response intercepting.
+- Routing with authentication enabled.
+- Attaching bearer token to each request.
+- Using reusable components with ngFor
+- Global components (eg: search bar)
+- Using env files in the production build with vercel
+- Handling modals
+- Handling gloabl toast/alert
 
-## Further help
+## Notes
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- environments file is commited to repo, knowing that it's a risk, this is done to overcome the hosting env variable issue in vercel. environments file will be removed in future.
+
+## Screenshots
+
+![](https://drive.google.com/file/d/1YvT0ZbyP9hdaY0Ctbc4BkXZ0iIn5Aena/view?usp=sharing)

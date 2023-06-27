@@ -31,26 +31,6 @@ class MovieController {
     }
   };
 
-  public getBy = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    try {
-      const { limit = 50, offset = 0 } = req.query;
-      const { filterBy, filterValue } = req.body;
-      const movies = await this.MovieService.getBy(
-        filterBy,
-        filterValue,
-        Number(limit),
-        Number(offset)
-      );
-      responseMiddleware(res, HttpStatus.Ok, { movies });
-    } catch (error: any) {
-      next(new HttpException(HttpStatus.Bad_Request, error.message));
-    }
-  };
-
   public getById = async (
     req: Request,
     res: Response,

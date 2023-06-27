@@ -4,8 +4,6 @@ import authenticatedMiddleware from 'middleware/authenticated.middleware';
 import { Roles } from 'utils/enums/roles.enums';
 import RouterInterace from 'utils/interfaces/router.interface';
 import MovieController from './movie.controller';
-import validationMiddleware from 'middleware/validation.middleware';
-import validate from 'resources/movie/movie.validation';
 
 class MovieRouter implements RouterInterace {
   public path: string = '/movies';
@@ -20,19 +18,11 @@ class MovieRouter implements RouterInterace {
     this.router.get(
       `${this.path}`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      // validationMiddleware(validate.getAll),
       this.MovieController.getAll
-    );
-    this.router.post(
-      `${this.path}`,
-      authenticatedMiddleware([Roles.Admin, Roles.User]),
-      // validationMiddleware(validate.getBy),
-      this.MovieController.getBy
     );
     this.router.get(
       `${this.path}/:id`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      // validationMiddleware(validate.getById),
       this.MovieController.getById
     );
   }

@@ -8,6 +8,8 @@ import token from 'utils/token';
 import User from './user.interface';
 import UserService from 'resources/user/user.service';
 
+const { DEFAULT_LIMIT, DEFAULT_OFFSET } = process.env;
+
 class UserController {
   private UserService = new UserService();
 
@@ -51,7 +53,7 @@ class UserController {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      const { limit = 5, offset = 0, search = '' } = req.query;
+      const { limit = DEFAULT_LIMIT, offset = DEFAULT_OFFSET, search = '' } = req.query;
       if (search) {
         return responseMiddleware(res, HttpStatus.Ok, {
           count: await this.UserService.searchCollectionsCount(id),
@@ -74,7 +76,7 @@ class UserController {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      const { limit = 5, offset = 0, search = '' } = req.query;
+      const { limit = DEFAULT_LIMIT, offset = DEFAULT_OFFSET, search = '' } = req.query;
       if (search) {
         const searchText = search.toString();
         return responseMiddleware(res, HttpStatus.Ok, {
