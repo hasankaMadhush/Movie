@@ -47,5 +47,7 @@ Hosted with [vercel.com](https://vercel.com/)
 - environments file is commited to repo, knowing that it's a risk, this is done to overcome the hosting env variable issue in vercel. environments file will be removed in future.
 
 ## Screenshots
-
-![](https://drive.google.com/file/d/1YvT0ZbyP9hdaY0Ctbc4BkXZ0iIn5Aena/view?usp=sharing)
+![Screenshot 2023-06-27 at 06 09 30](https://github.com/hasankaMadhush/movie/assets/17855709/c5301ca7-fe2b-42e9-8697-60bb8688bff4)
+![Screenshot 2023-06-27 at 06 10 04](https://github.com/hasankaMadhush/movie/assets/17855709/fedd9554-ee33-480d-b584-792be35af3b0)
+![Screenshot 2023-06-27 at 06 10 17](https://github.com/hasankaMadhush/movie/assets/17855709/0135006f-4ecc-4fda-8aee-acf31b909633)
+![Screenshot 2023-06-27 at 06 10 46](https://github.com/hasankaMadhush/movie/assets/17855709/6dd87254-c17c-45d2-81db-73f804071757)
