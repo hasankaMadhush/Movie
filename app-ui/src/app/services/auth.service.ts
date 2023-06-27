@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import User from 'src/app/interfaces/user.interface';
 
+const ACCESS_TOKEN = 'jwt';
+const LOGGED_IN_USER = 'user';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,9 +23,11 @@ export class AuthService {
   }
 
   isLoggedIn(): void {
-    this._isLoggedIn$.next(!!localStorage.getItem('jwt'));
-    this._loggedInUser$.next(JSON.parse(localStorage.getItem('user') || '{}'));
-    this.redirect();
+    this._isLoggedIn$.next(!!localStorage.getItem(ACCESS_TOKEN));
+    this._loggedInUser$.next(
+      JSON.parse(localStorage.getItem(LOGGED_IN_USER) || '{}')
+    );
+
   }
 
   // login users
@@ -32,8 +37,8 @@ export class AuthService {
         const { user, token } = response.data || '';
         this._isLoggedIn$.next(!!token);
         this._loggedInUser$.next(user);
-        localStorage.setItem('jwt', token);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem(ACCESS_TOKEN, token);
+        localStorage.setItem(LOGGED_IN_USER, JSON.stringify(user));
       })
     );
   }
@@ -46,8 +51,12 @@ export class AuthService {
   //logout from application
   logout(): void {
     this._isLoggedIn$.next(false);
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('user');
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(LOGGED_IN_USER);
+  }
+
+  getToken() {
+    return localStorage.getItem(ACCESS_TOKEN);
   }
 
   // redirect to login if user is not logged in
