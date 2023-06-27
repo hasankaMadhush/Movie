@@ -32,7 +32,6 @@ function authenticatedMiddleware(roles: string[] | string = [Roles.User]): any {
         if (!user) {
           return next(new HttpException(HttpStatus.Unauthorized, UNATHORIZED));
         }
-        req.user = user;
         return next();
       } catch (error) {
         return next(new HttpException(HttpStatus.Unauthorized, UNATHORIZED));

@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 
 import User from 'resources/user/user.interface';
 
+const { BCRYPT_SALT = 10 } = process.env;
+
 const UserSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -17,7 +19,7 @@ UserSchema.pre<User>('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
-  const hash = await bcrypt.hash(this.password, 10);
+  const hash = await bcrypt.hash(this.password, BCRYPT_SALT);
   this.password = hash;
   next();
 });

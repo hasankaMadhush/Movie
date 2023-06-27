@@ -6,6 +6,7 @@ import CollectionModel from 'resources/collection/collection.model';
 class CollectionService {
   private collection: Model<Collection> = CollectionModel;
 
+  // creates a new collection
   public async create(
     name: string,
     createdBy: Types.ObjectId,
@@ -22,6 +23,7 @@ class CollectionService {
     }
   }
 
+  // gets a collection by id
   public async get(id: string): Promise<Collection | Error> {
     try {
       const collection = await this.collection
@@ -37,6 +39,7 @@ class CollectionService {
     }
   }
 
+  // add movies to the existing collection
   public async addMovies(id: string, movies: string[]): Promise<Collection | Error> {
     try {
       const collection = await this.collection.findByIdAndUpdate(
@@ -52,6 +55,7 @@ class CollectionService {
     }
   }
 
+  // remove movies from the existing collection
   public async removeMovies(id: string, movies: string[]): Promise<Collection | Error> {
     try {
       const updatedCollection = await this.collection.findByIdAndUpdate(
@@ -67,6 +71,7 @@ class CollectionService {
     }
   }
 
+  // deletes a collection
   public async delete(id: string): Promise<Collection | Error> {
     try {
       const deletedCollection = await this.collection.findByIdAndDelete({ _id: id });

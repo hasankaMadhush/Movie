@@ -4,6 +4,9 @@ import winston, { format } from 'winston';
 import LoggerInterface from 'utils/interfaces/logger.interface';
 
 const { combine, timestamp, prettyPrint } = format;
+const PRODUCTION = 'production';
+const INFO = 'info';
+const { BASE_LOG_FOLDER, ERROR_LOG, COMBINED_LOG } = process.env;
 
 class Logger implements LoggerInterface {
   public logger: any = null;
@@ -16,16 +19,19 @@ class Logger implements LoggerInterface {
     if (!this.logger) {
       this.logger = winston.createLogger({
         format: combine(timestamp(), prettyPrint()),
-        level: 'info',
+        level: INFO,
         transports: [
           // - Write all logs with importance level of `error` or less to `error.log`
           // - Write all logs with importance level of `info` or less to `combined.log`
-          new winston.transports.File({ filename: '/tmp/movie/error.log', level: 'error' }),
-          new winston.transports.File({ filename: '/tmp/movie/combined.log' }),
+          new winston.transports.File({
+            filename: `${BASE_LOG_FOLDER}${ERROR_LOG}`,
+            level: 'error',
+          }),
+          new winston.transports.File({ filename: `${BASE_LOG_FOLDER}${COMBINED_LOG}` }),
         ],
       });
     }
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== PRODUCTION) {
       this.logger.add(
         new winston.transports.Console({
           format: winston.format.simple(),

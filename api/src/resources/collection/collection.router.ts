@@ -7,9 +7,6 @@ import RouterInterace from 'utils/interfaces/router.interface';
 import validate from 'resources/collection/collection.validation';
 import validationMiddleware from 'middleware/validation.middleware';
 
-/**
- * TO DO: Add Middleware validations
- */
 class CollectionRouter implements RouterInterace {
   public path = '/collections';
   public router = Router();
@@ -23,10 +20,9 @@ class CollectionRouter implements RouterInterace {
     this.router.post(
       `${this.path}`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
-      // validationMiddleware(validate.create),
+      validationMiddleware(validate.create),
       this.CollectionController.create
     );
-    // add authentication validations
     this.router.get(
       `${this.path}/:id`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
@@ -35,11 +31,13 @@ class CollectionRouter implements RouterInterace {
     this.router.post(
       `${this.path}/:id/movies`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
+      validationMiddleware(validate.addOrRemoveMovies),
       this.CollectionController.addMovies
     );
     this.router.post(
       `${this.path}/:id/movies/remove`,
       authenticatedMiddleware([Roles.Admin, Roles.User]),
+      validationMiddleware(validate.addOrRemoveMovies),
       this.CollectionController.removeMovies
     );
     this.router.delete(

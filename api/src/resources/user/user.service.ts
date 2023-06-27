@@ -9,6 +9,12 @@ class UserService {
   private user: Model<User> = UserModel;
   private collection: Model<Collection> = CollectionModel;
 
+  /**
+   * returns the user without password field
+   *
+   * mongoose didn't support create function to omit certain fields,
+   * therefore needs to query again to remove password
+   */
   public async create(
     name: string,
     email: string,
@@ -32,6 +38,12 @@ class UserService {
     }
   }
 
+  /**
+   * returns the user without password.
+   *
+   * mongoose didn't support create function to omit certain fields,
+   * therefore needs to query again to remove password
+   */
   public async authenticate(email: string, password: string): Promise<User | Error> {
     try {
       const user = await this.user.findOne({ email });
@@ -49,6 +61,11 @@ class UserService {
       throw new Error(`Unable to authenticate user: ${error.message}`);
     }
   }
+
+  /**
+   * gets collections for a given user,
+   * sort is supported only for created timestamp
+   */
   public async getCollections(
     userId: string,
     limit: number,
@@ -67,6 +84,10 @@ class UserService {
     }
   }
 
+  /**
+   * gets collections that are not created by the given user
+   * sorting is supported only for created timestamp atm
+   */
   public async getOthersCollections(
     userId: string,
     limit: number,
@@ -85,6 +106,10 @@ class UserService {
     }
   }
 
+  /**
+   * search collection by name for a given user
+   * search is not case sensitive
+   */
   public async searchCollections(
     userId: string,
     searchText: string = ''
@@ -102,6 +127,10 @@ class UserService {
     }
   }
 
+  /**
+   * search collections that are not created by the given user
+   * search is not case sensitive
+   */
   public async searchOthersCollections(
     userId: string,
     searchText: string = ''
@@ -119,6 +148,10 @@ class UserService {
     }
   }
 
+  /**
+   * get the total collections count for the given user
+   * used for pagination purposes/ total record count display
+   */
   public async getCollectionsCount(userId: string): Promise<number | Error> {
     try {
       return await this.collection.find({ owner: userId }).count();
@@ -127,6 +160,10 @@ class UserService {
     }
   }
 
+  /**
+   * get the total collections count for the given user for the given search parameter
+   * used for pagination purposes/ total record count display
+   */
   public async searchCollectionsCount(
     userId: string,
     searchText: string = ''
@@ -143,6 +180,10 @@ class UserService {
     }
   }
 
+  /**
+   * get the total collections count that are not created by for the given user
+   * used for pagination purposes/ total record count display
+   */
   public async getOthersCollectionsCount(userId: string): Promise<number | Error> {
     try {
       return await this.collection.find({ owner: { $ne: userId } }).count();
@@ -151,6 +192,10 @@ class UserService {
     }
   }
 
+  /**
+   * get the total collections count that are not created by the given user for the given search parameter
+   * used for pagination purposes/ total record count display
+   */
   public async searchOthersCollectionsCount(
     userId: string,
     searchText: string = ''
