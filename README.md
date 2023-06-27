@@ -2,6 +2,12 @@
 
 This repository consists of a demo Backend API(REST) and a Front-end for a Movie-Collection using Angular
 
+Hosted with vercel.com 
+
+Demo site: https://movie-kappa-seven.vercel.app/login
+Demo user: johndoe@test.com 
+password: 123@intel
+
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/3611575-47101511-4c56-45b1-80b1-3a583cf5f554?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D3611575-47101511-4c56-45b1-80b1-3a583cf5f554%26entityType%3Dcollection%26workspaceId%3D6e407bd0-2b1f-4337-981b-84584bcd9e2d)
 
 ## Table of Contents
