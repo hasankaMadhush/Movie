@@ -6,10 +6,10 @@ This repository consists of a demo Backend API(REST) and a Front-end for a Movie
 
 ## Table of Contents
 
-- [Introduction](https://google.com)
-- [Quickstart](https://google.com)
-- [Backend]()
-- [Front-end](https://google.com)
+- [Introduction](#movie-collection)
+- [Quickstart](#quickstart)
+- [Backend](#backend)
+- [Front-end](#front-end)
 
 ## Quickstart
 
@@ -17,8 +17,8 @@ This repository consists of a demo Backend API(REST) and a Front-end for a Movie
 
   git clone https://github.com/hasankaMadhush/movie.git
 
-- [Follow Back-end setup instructions](https://google.com)
-- [Follow Front-end setup instructions](https://google.com)
+- [Follow Back-end setup instructions](#backend)
+- [Follow Front-end setup instructions](#front-end)
 
 ## Technologies
 
