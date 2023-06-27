@@ -5,8 +5,8 @@ import { Location } from '@angular/common';
 import * as dayjs from 'dayjs';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 
-import { ApiService } from 'src/app/services/api.service';
 import Collection from 'src/app/interfaces/collection.interface';
+import { CollectionService } from 'src/app/services/collection.service';
 import { environment } from 'src/environments/environment';
 import Movie from 'src/app/interfaces/movie.interface';
 import { SOURCES } from 'src/lib/constants';
@@ -31,7 +31,10 @@ export class CollectionComponent {
   movies: Movie[] = [];
   sourceTypes = SOURCES;
 
-  constructor(private apiService: ApiService, private location: Location) {
+  constructor(
+    private collectionService: CollectionService,
+    private location: Location
+  ) {
     this.collectionId = this.route.snapshot.params['id'];
   }
 
@@ -40,7 +43,7 @@ export class CollectionComponent {
   }
 
   get() {
-    this.apiService.get(this.collectionId).subscribe((response) => {
+    this.collectionService.get(this.collectionId).subscribe((response) => {
       this.collection = response.data;
       this.movies = response.data.movies;
       this.title = response.data.name;
