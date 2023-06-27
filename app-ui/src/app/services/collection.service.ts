@@ -46,6 +46,13 @@ export class CollectionService {
     return this.apiService.addMoviesToCollection(collection._id, [movie._id]);
   }
 
+  // remove selected movies from collection
+  removeMovies(collection: Collection, movie: Movie) {
+    return this.apiService.removeMoviesFromCollection(collection._id, [
+      movie._id,
+    ]);
+  }
+
   // creates a new collection - movies can be empty
   create(name: string, userId: string, movieIds: string[]) {
     return this.apiService.createCollection(name, userId, movieIds);
@@ -54,5 +61,10 @@ export class CollectionService {
   // get a single collection by ID
   get(id: string) {
     return this.apiService.get(id);
+  }
+
+  // deletes a given collection
+  delete(id: string) {
+    return this.apiService.delete(id);
   }
 }

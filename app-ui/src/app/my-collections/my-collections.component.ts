@@ -69,6 +69,7 @@ export class MyCollectionsComponent {
     this.authService.loggedInUser.subscribe(
       (user) => (this.loggedInUser = user)
     );
+    this.getMovies();
   }
 
   getAll(search: string = '') {
@@ -113,5 +114,14 @@ export class MyCollectionsComponent {
   setCurrentPage(currentPage: number) {
     this.offset = currentPage;
     this.getAll();
+  }
+
+  delete(collection: Collection) {
+    this.collectionService.delete(collection._id).subscribe((response) => {
+      if (response) {
+        window.alert(`${collection.name} removed successfully`);
+        this.getAll();
+      }
+    });
   }
 }

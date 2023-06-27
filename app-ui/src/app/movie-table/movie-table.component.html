@@ -6,60 +6,78 @@
       <th class="w-25 hide">Overview</th>
       <th class="hide">Language</th>
       <th>Released Date</th>
-      <th>Add to Collection</th>
+      <th *ngIf="source === sourceTypes.collection && !isTheOwner">
+        Add to Collection
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let movie of movies; let indexOfelement = index">
-      <td class="align-middle">{{ indexOfelement + 1 }}</td>
-      <td class="align-middle title" (click)="navigateToCollection(movie._id)">
-        <img
-          src="{{ movie.poster }}"
-          class="rounded float-start my-auto hide"
-          alt="..."
-          height="50"
-          width="50"
-        />
-        <span class="mx-2 fs-6 fw-bold title">{{ movie.title }}</span>
+    <tr *ngIf="movies.length === 0; else elseBlock">
+      <td colspan="100%" class="text-center border-0 fw-bold">
+        No Movies, Try adding few...
       </td>
-      <td class="w-50 hide" (click)="navigateToCollection(movie._id)">
-        {{ movie.overview }}
-      </td>
-      <td class="hide text-uppercase" (click)="navigateToCollection(movie._id)">
-        {{ movie.language }}
-      </td>
-      <td (click)="navigateToCollection(movie._id)">
-        {{ dayjs(movie.releaseDate).format(dateFormat) }}
-      </td>
-      <td *ngIf="source === sourceTypes.movie; else collectionTypeBlock">
-        <div class="btn-group">
-          <fa-icon
-            class="dropdown-toggle btn-sm mx-2"
-            [icon]="faHeart"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            size="2x"
-          ></fa-icon>
-          <ul class="dropdown-menu">
-            <li
-              class="dropdown-item"
-              *ngFor="let collection of collections"
-              (click)="addToCollection(collection, movie)"
-            >
-              {{ collection.name }}
-            </li>
-          </ul>
-        </div>
-      </td>
-      <ng-template #collectionTypeBlock>
-        <td>
-          <fa-icon
-            class="my-auto delete-icon"
-            [icon]="faTrash"
-            color="red"
-          ></fa-icon>
-        </td>
-      </ng-template>
     </tr>
+    <ng-template #elseBlock>
+      <tr *ngFor="let movie of movies; let indexOfelement = index">
+        <td class="align-middle">{{ indexOfelement + 1 }}</td>
+        <td
+          class="align-middle title"
+          (click)="navigateToCollection(movie._id)"
+        >
+          <img
+            src="{{ movie.poster }}"
+            class="rounded float-start my-auto hide"
+            alt="..."
+            height="50"
+            width="50"
+          />
+          <span class="mx-2 fs-6 fw-bold title">{{ movie.title }}</span>
+        </td>
+        <td class="w-50 hide" (click)="navigateToCollection(movie._id)">
+          {{ movie.overview }}
+        </td>
+        <td
+          class="hide text-uppercase"
+          (click)="navigateToCollection(movie._id)"
+        >
+          {{ movie.language }}
+        </td>
+        <td (click)="navigateToCollection(movie._id)">
+          {{ dayjs(movie.releaseDate).format(dateFormat) }}
+        </td>
+        <td *ngIf="source === sourceTypes.movie || !isTheOwner">
+          <div class="btn-group">
+            <fa-icon
+              class="dropdown-toggle btn-sm mx-2"
+              [icon]="faHeart"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              size="2x"
+            ></fa-icon>
+            <ul class="dropdown-menu">
+              <li
+                class="dropdown-item"
+                *ngFor="let collection of collections"
+                (click)="addToCollection(collection, movie)"
+              >
+                {{ collection.name }}
+              </li>
+            </ul>
+          </div>
+        </td>
+        <td *ngIf="isTheOwner && source === sourceTypes.collection">
+          <button
+            class="btn btn-link"
+            (click)="removeFromCollection(collection, movie)"
+          >
+            <fa-icon
+              class="my-auto delete-icon"
+              [icon]="faTrash"
+              color="red"
+            ></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
   </tbody>
 </table>

@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import * as dayjs from 'dayjs';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 
+import { AuthService } from '../services/auth.service';
 import Collection from 'src/app/interfaces/collection.interface';
 import { CollectionService } from 'src/app/services/collection.service';
 import { environment } from 'src/environments/environment';
@@ -27,18 +28,17 @@ export class CollectionComponent {
   title: string = '';
   content: string = '';
   collectionId: string;
-  collection: Collection | undefined;
+  collection!: Collection;
   movies: Movie[] = [];
+  isTheOwner: boolean = false;
   sourceTypes = SOURCES;
 
   constructor(
     private collectionService: CollectionService,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) {
     this.collectionId = this.route.snapshot.params['id'];
-  }
-
-  ngOnInit() {
     this.get();
   }
 
@@ -52,6 +52,7 @@ export class CollectionComponent {
       )}, Updated on: ${dayjs(response.data.updatedAt).format(
         defualtDateFormat
       )}`;
+      this.setIsTheOwner(response.data);
     });
   }
 
@@ -65,5 +66,24 @@ export class CollectionComponent {
   // goes back to list view
   goBack() {
     this.location.back();
+  }
+
+  removeFromCollection(collection: Collection, movie: Movie) {
+    this.collectionService
+      .removeMovies(collection, movie)
+      .subscribe((response) => {
+        if (response.data) {
+          window.alert(
+            `${movie.title} removed successfully from ${collection.name} collection`
+          );
+          window.location.reload();
+        }
+      });
+  }
+
+  setIsTheOwner(collection: Collection) {
+    this.authService.loggedInUser.subscribe(
+      (value) => (this.isTheOwner = value?._id === collection.owner._id)
+    );
   }
 }

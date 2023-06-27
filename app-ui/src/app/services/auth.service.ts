@@ -27,7 +27,6 @@ export class AuthService {
     this._loggedInUser$.next(
       JSON.parse(localStorage.getItem(LOGGED_IN_USER) || '{}')
     );
-
   }
 
   // login users

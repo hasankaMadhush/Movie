@@ -26,7 +26,13 @@ export class MovieTableComponent {
 
   @Input() source: string = '';
   @Input() movies: Movie[] = [];
+  @Input() isTheOwner: boolean = false;
+  @Input() collection!: Collection;
   @Input() addToCollection!: (collection: Collection, movie: Movie) => void;
+  @Input() removeFromCollection!: (
+    collection: Collection,
+    movie: Movie
+  ) => void;
 
   collections: Collection[] = [];
   sourceTypes = SOURCES;

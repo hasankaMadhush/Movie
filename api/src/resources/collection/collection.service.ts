@@ -60,14 +60,14 @@ class CollectionService {
     try {
       const updatedCollection = await this.collection.findByIdAndUpdate(
         { _id: id },
-        { $pull: { $in: movies } }
+        { $pullAll: { movies: movies } }
       );
       if (!updatedCollection) {
         throw new Error('Unable to get remove from collection, collection not found');
       }
       return updatedCollection;
-    } catch (error) {
-      throw new Error('Unable to remove movies from collection');
+    } catch (error: any) {
+      throw new Error(`Unable to remove movies from collection, ${error.message}`);
     }
   }
 

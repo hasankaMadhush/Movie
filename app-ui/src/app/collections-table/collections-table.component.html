@@ -11,14 +11,11 @@
       </td>
     </tr>
     <ng-template #elseBlock>
-      <tr
-        *ngFor="let collection of collections; let indexOfelement = index"
-        (click)="navigateTo(collection._id)"
-      >
-        <td>{{ indexOfelement + 1 }}</td>
-        <td class="align-middle">
+      <tr *ngFor="let collection of collections; let indexOfelement = index">
+        <td (click)="navigateTo(collection._id)">{{ indexOfelement + 1 }}</td>
+        <td class="align-middle" (click)="navigateTo(collection._id)">
           <img
-            src="{{ collection?.movies?.[0]?.poster }}"
+            src="{{ collection?.movies?.[0]?.poster || thumbnailImg }}"
             class="rounded float-start my-auto"
             alt="..."
             height="50"
@@ -26,17 +23,23 @@
           />
           <span class="mx-2 fs-6 fw-bold">{{ collection.name }}</span>
         </td>
-        <td>{{ collection.movies.length }}</td>
-        <td *ngIf="all">
+        <td (click)="navigateTo(collection._id)">
+          {{ collection.movies.length }}
+        </td>
+        <td *ngIf="all" (click)="navigateTo(collection._id)">
           {{ collection.owner.name }}
         </td>
-        <td>{{ dayjs(collection.createdAt).format(dateFormat) }}</td>
+        <td (click)="navigateTo(collection._id)">
+          {{ dayjs(collection.createdAt).format(dateFormat) }}
+        </td>
         <td *ngIf="!all">
-          <fa-icon
-            class="my-auto delete-icon"
-            [icon]="faTrash"
-            color="red"
-          ></fa-icon>
+          <button class="btn btn-link" (click)="onDelete(collection)">
+            <fa-icon
+              class="my-auto delete-icon"
+              [icon]="faTrash"
+              color="red"
+            ></fa-icon>
+          </button>
         </td>
       </tr>
     </ng-template>
