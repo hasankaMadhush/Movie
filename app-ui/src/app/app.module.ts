@@ -24,7 +24,6 @@ import { MyCollectionsComponent } from './my-collections/my-collections.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ResultsCountComponent } from './results-count/results-count.component';
-import routeConfig from './app.routes';
 import { SearchComponent } from './search/search.component';
 import { SignupComponent } from './signup/signup.component';
 import { ToastComponent } from './toast/toast.component';
@@ -54,13 +53,11 @@ import { ToastComponent } from './toast/toast.component';
     AppRoutingModule,
     FontAwesomeModule,
     NgbModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [
-    provideRouter(routeConfig),
     NgbActiveModal,
     {
       provide: HTTP_INTERCEPTORS,
