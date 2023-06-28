@@ -81,6 +81,18 @@ export class CollectionComponent {
       });
   }
 
+  addToCollection(collection: Collection, movie: Movie) {
+    this.collectionService
+      .addMovies(collection, movie)
+      .subscribe((response) => {
+        if (response.data) {
+          window.alert(
+            `${movie.title} added successfully to ${collection.name} collection`
+          );
+        }
+      });
+  }
+
   setIsTheOwner(collection: Collection) {
     this.authService.loggedInUser.subscribe(
       (value) => (this.isTheOwner = value?._id === collection.owner._id)
